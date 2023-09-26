@@ -32,7 +32,6 @@ A Detailed View of the Functionalities:
 - As a user, I want to be able to view statistics on how much money I spend within each category.
 - As a user, I want to be able to track how my expenses change over the period of days, weeks, and months.
 - As a user, I want to be able to set a budget cap for a certain week or month and view how much money I have left to spend.
-- 
 
 
 
