@@ -1,10 +1,29 @@
-# My Personal Project
+# Finance Tracker
 
-## A subtitle
+## Project Proposal
+I plan to implement a **Finance Tracker** Application for my Personal Project.
+Living off campus my second year made me realize how much money we spend on groceries, monthly bills,
+transportation, and more. Having a simple application in which we can track our purchases and see basic
+statistics about how we are spending our money would be extremely useful for the everyday student.
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
+This application will be catered towards students who want a simple way of having
+all purchases and expenses tracked in one place. It will provide users a method to add
+different types of expenses such as recurring monthly bills and subscriptions, one time expenses,
+and other categories such as food, transportation, and more. Users can see how much money they
+are spending over the period of a day, week, or month, as well as what percentage of their spending
+is spent in different categories. Users can also add a budget cap to track how much money they have
+left over after each expense.
 
-An example of text with **bold** and *italic* fonts.  
+
+A Detailed View of the Functionalities:
+- A way to add different types of expenses
+- Label each type of expense
+- Set up recurring expenses
+- Track amount spent within each category
+- Track percentage of money spent on each category over days, weeks, months
+- Add a budget cap to a specific day, week, or month
+
+
+
+
+
