@@ -25,7 +25,7 @@ A Detailed View of the Functionalities:
 
 ## User Stories
 - As a user, I want to be able to specify different expense categories such as food, bills, etc.
-- As a user, I want to be able to add new expenses and specify cost, name, and category
+- As a user, I want to be able to add new expenses and specify cost, name, and category.
 - As a user, I want to be able to remove expenses.
 - As a user, I want to be able to save recurring expenses that I can add multiple times.
 - As a user, I want to be able to view a list of all my expenses for that day, week, or month.
