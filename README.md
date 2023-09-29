@@ -23,7 +23,7 @@ A Detailed View of the Functionalities:
 - Track percentage of money spent on each category over days, weeks, months
 - Add a budget cap to a specific day, week, or month
 
-## User Stores
+## User Stories
 - As a user, I want to be able to specify different expense categories such as food, bills, etc.
 - As a user, I want to be able to add new expenses and specify cost, name, and category
 - As a user, I want to be able to remove expenses.
