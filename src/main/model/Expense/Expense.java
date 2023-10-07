@@ -1,4 +1,4 @@
-package model.Expenses;
+package model.Expense;
 
 //General Model of an expense with specified name, category, amount, description
 public abstract class Expense {
