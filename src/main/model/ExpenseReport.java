@@ -1,5 +1,7 @@
 package model;
 
+import model.Expenses.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,7 +113,7 @@ public class ExpenseReport {
     // Getters:
 
     public List<Expense> getExpenses() {
-        return null;
+        return expenseList;
     }
 
     public double getBudget() {

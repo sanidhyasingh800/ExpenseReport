@@ -1,4 +1,4 @@
-package model;
+package model.Expenses;
 
 public class HousingExpense extends Expense {
 

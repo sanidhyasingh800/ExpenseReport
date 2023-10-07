@@ -1,7 +1,7 @@
-package model;
+package model.Expenses;
 
 //General Model of an expense with specified name, category, amount, description
-abstract class Expense {
+public abstract class Expense {
     private String name;
     private double amount;
     private String description;
