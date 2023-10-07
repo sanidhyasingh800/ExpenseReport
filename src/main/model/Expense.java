@@ -1,15 +1,12 @@
 package model;
 
 //General Model of an expense with specified name, category, amount, description
-
-import java.util.Deque;
-import java.util.NavigableMap;
-
 abstract class Expense {
     private String name;
     private double amount;
     private String description;
 
+    //EFFECTS: Constructs a general expense with given name, amount, and description
     public Expense(String name, double amount, String description) {
         this.name = name;
         this.amount = amount;
