@@ -1,7 +1,6 @@
 package model;
 
 import model.expense.*;
-import model.ExpenseReport;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,19 +21,35 @@ public class ExpenseReportTest {
     private Expense expense8;  // represents expense made last year
     private Expense expense9;
     private Expense expense10; // represents expense more than a month ago
-    private double budget = 1000;
+    private final double budget = 1000;
     private ExpenseReport testReport;
 
     @BeforeEach
     public void setUp() {
         initializeExpenses();
-        testReport = new ExpenseReport(1000);
+        testReport = new ExpenseReport(budget);
     }
 
     @Test
     public void testConstructor(){
         assertEquals(1000, testReport.getBudget());
         assertEquals(0, testReport.getExpenses().size());
+
+    }
+
+    @Test
+    public void testAddExpenseIncorrectCase() {
+        testReport.addExpense("FoodExpense1", 100, "D1", 6);
+        List<Expense> testList = testReport.getExpenses();
+        assertEquals(0, testList.size());
+
+    }
+
+    @Test
+    public void testAddExpenseWithTimeIncorrectCase() {
+        testReport.addExpenseWithTime("FoodExpense1", 100, "D1", 6, 2023, 10, 9);
+        List<Expense> testList = testReport.getExpenses();
+        assertEquals(0, testList.size());
 
     }
 
@@ -299,7 +314,7 @@ public class ExpenseReportTest {
     }
 
     @Test
-    public void testGetSpecificCategoryofExpensesNoneReturned() {
+    public void testGetSpecificCategoryOfExpensesNoneReturned() {
         List<Expense> testList = testReport.getSpecificCategoryOfExpense(1);
         assertEquals(0, testList.size());
     }
@@ -360,7 +375,7 @@ public class ExpenseReportTest {
     }
 
     @Test
-    public void testGetSpecifcCategoryButWrongIndexProvided() {
+    public void testGetSpecificCategoryButWrongIndexProvided() {
         addAllExpenses();
         List<Expense> testList = testReport.getSpecificCategoryOfExpense(6);
         assertEquals(0, testList.size());

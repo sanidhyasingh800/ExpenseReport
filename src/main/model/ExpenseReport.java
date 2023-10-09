@@ -246,6 +246,8 @@ public class ExpenseReport {
             case 5:
                 list.add(new PersonalExpense(name, amount, description));
                 break;
+            default:
+                break;
         }
     }
 
@@ -271,6 +273,8 @@ public class ExpenseReport {
                 break;
             case 5:
                 list.add(new PersonalExpense(name, amount, description, year, month, day));
+                break;
+            default:
                 break;
         }
     }
