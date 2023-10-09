@@ -22,16 +22,22 @@ public class StatisticsReportTest {
     private Expense expense8;  // represents expense made last year
     private Expense expense9;
     private Expense expense10; // represents expense more than a month ago
+    private Expense expense11;
+    private Expense expense12;
     private final double budget = 1000;
     private ExpenseReport testExpenses;
+    private ExpenseReport testExpensesEmpty;
     private StatisticsReport testStatistics;
+    private StatisticsReport testStatisticsEmpty;
 
     @BeforeEach
     public void setup() {
         initializeExpenses();
         testExpenses = new ExpenseReport(budget);
+        testExpensesEmpty = new ExpenseReport(budget);
         addAllExpenses();
         testStatistics = new StatisticsReport(testExpenses);
+        testStatisticsEmpty = new StatisticsReport(testExpensesEmpty);
     }
 
     @Test
@@ -75,6 +81,11 @@ public class StatisticsReportTest {
     }
 
     @Test
+    public void testPercentageOfCategory1NoneReturned() {
+        assertEquals(0, testStatisticsEmpty.percentageOfCategory(1));
+    }
+
+    @Test
     public void testPercentageOfCategory1() {
         assertEquals(18.97, testStatistics.percentageOfCategory(1), 0.5);
     }
@@ -88,9 +99,28 @@ public class StatisticsReportTest {
     public void testAverageCostByCategory1() {
         assertEquals(125.0, testStatistics.averageCostByCategory(1), 0.5);
     }
+
+    @Test
+    public void testAverageCostByCategory1IsZero() {
+        assertEquals(0, testStatisticsEmpty.averageCostByCategory(1));
+        assertEquals(0, testStatisticsEmpty.averageCostByCategory(2));
+        assertEquals(0, testStatisticsEmpty.averageCostByCategory(3));
+        assertEquals(0, testStatisticsEmpty.averageCostByCategory(4));
+        assertEquals(0, testStatisticsEmpty.averageCostByCategory(5));
+    }
     @Test
     public void testTotalExpenses() {
         assertEquals(10, testStatistics.totalExpenses(), 0.5);
+    }
+
+    @Test
+
+    public void testTotalExpensesByCategory() {
+        assertEquals(2, testStatistics.totalExpensesInCategory(1));
+        assertEquals(2, testStatistics.totalExpensesInCategory(2));
+        assertEquals(2, testStatistics.totalExpensesInCategory(3));
+        assertEquals(2, testStatistics.totalExpensesInCategory(4));
+        assertEquals(2, testStatistics.totalExpensesInCategory(5));
     }
 
     @Test
@@ -129,13 +159,29 @@ public class StatisticsReportTest {
     }
 
     @Test
+    public void testAverageSpendingTodayZero() {
+        assertEquals(0, testStatisticsEmpty.averageSpendingToday());
+    }
+
+    @Test
     public void testAverageSpendingWeekly() {
         assertEquals(93.35, testStatistics.averageSpendingWeekly(), 0.5);
     }
 
     @Test
+    public void testAverageSpendingWeeklyZero() {
+        assertEquals(0, testStatisticsEmpty.averageSpendingWeekly());
+    }
+
+
+    @Test
     public void testAverageSpendingMonthly() {
         assertEquals(100.43, testStatistics.averageSpendingMonthly(), 0.5);
+    }
+
+    @Test
+    public void testAverageSpendingMonthlyZero() {
+        assertEquals(0, testStatisticsEmpty.averageSpendingMonthly());
     }
 
     @Test
@@ -150,7 +196,7 @@ public class StatisticsReportTest {
 
     @Test
     public void testPercentageCoveredByInsurance() {
-        assertEquals(0.5, testStatistics.percentageCoveredByInsurance(), 0.5);
+        assertEquals(50, testStatistics.percentageCoveredByInsurance(), 0.5);
     }
 
     @Test
@@ -174,12 +220,13 @@ public class StatisticsReportTest {
 
     @Test
     public void testTotalSpentOnPublicTransportation() {
-        assertEquals(0.0, testStatistics.totalSpentOnPublicTransportation(), 0.5);
+        assertEquals(1.5, testStatistics.totalSpentOnPublicTransportation(), 0.5);
     }
+
 
     @Test
     public void testTotalSpentOnPersonalTransportation() {
-        assertEquals(0.0,testStatistics.totalSpentOnPersonalTransportation(), 0.5);
+        assertEquals(1.5,testStatistics.totalSpentOnPersonalTransportation(), 0.5);
     }
 
     @Test
@@ -228,6 +275,10 @@ public class StatisticsReportTest {
                 LocalDate.now().minusDays(31).getYear(),
                 LocalDate.now().minusDays(31).getMonthValue(),
                 LocalDate.now().minusDays(31).getDayOfMonth());
+        testExpenses.addExpense("TransportationExpense3", 1.50, "D11",4 );
+        ((TransportationExpense) testExpenses.getExpenses().get(10)).setTypeOfTransportation(2);
+        testExpenses.addExpense("TransportationExpense4", 1.50, "D12",4 );
+        ((TransportationExpense) testExpenses.getExpenses().get(11)).setTypeOfTransportation(3);
     }
 
     private void initializeExpenses() {
@@ -266,5 +317,9 @@ public class StatisticsReportTest {
                 LocalDate.now().minusDays(31).getYear(),
                 LocalDate.now().minusDays(31).getMonthValue(),
                 LocalDate.now().minusDays(31).getDayOfMonth());
+        expense11 = new TransportationExpense("TransportationExpense3", 1.50, "D11");
+        ((TransportationExpense) expense7 ).setTypeOfTransportation(2);
+        expense12 = new TransportationExpense("TransportationExpense3", 1.50, "D12");
+        ((TransportationExpense) expense7 ).setTypeOfTransportation(3);
     }
 }

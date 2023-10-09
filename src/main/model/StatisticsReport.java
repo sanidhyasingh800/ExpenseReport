@@ -178,7 +178,7 @@ public class StatisticsReport {
                 total++;
             }
         }
-        return total / list.size();
+        return 100 * total / list.size();
     }
 
     // Housing:
