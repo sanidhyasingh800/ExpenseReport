@@ -94,6 +94,7 @@ public class ExpenseReport {
 
     //REQUIRES: amount>=0
     //EFFECTS: returns all expenses with cost of expense >= amount
+    //         in the order they were added
     public List<Expense> getExpensesAboveAmount(double amount) {
         List<Expense> returnList = new ArrayList<>();
         for (Expense ex: expenseList) {
@@ -106,6 +107,7 @@ public class ExpenseReport {
 
     //REQUIRES: amount >=0
     //EFFECTS: returns all expenses with cost of expense <= amount
+    //         in the order they were added
     public List<Expense> getExpensesBelowAmount(int amount) {
         List<Expense> returnList = new ArrayList<>();
         for (Expense ex: expenseList) {
@@ -117,6 +119,7 @@ public class ExpenseReport {
     }
 
     //EFFECTS: returns a list of expenses of specified category
+    //         in the order they were added
     //         (see addExpense to see which values of category correspond to which type)
     public List<Expense> getSpecificCategoryOfExpense(int category) {
         List<Expense> returnList;
@@ -145,6 +148,7 @@ public class ExpenseReport {
     // filtering by time:
 
     // EFFECTS: returns the expenses made in the last day, empty list if none
+    //          returns the expenses in the order they were added
     public List<Expense> filterByDay() {
         List<Expense> returnList = new ArrayList<>();
         for (Expense t : expenseList) {
@@ -155,11 +159,13 @@ public class ExpenseReport {
         return returnList;
     }
 
-    // EFFECTS: returns the expenses made in the last month, empty list if none
+    // EFFECTS: returns the expenses made in the last 30 days, empty list if none
+    //          returns the expenses in the order they were added
     public List<Expense> filterByMonth() {
         List<Expense> returnList = new ArrayList<>();
+        LocalDate l = LocalDate.now().minusDays(30);
         for (Expense t : expenseList) {
-            if (t.getDateOfCreation().getMonth().equals(LocalDate.now().getMonth())) {
+            if (t.getDateOfCreation().isAfter(l)) {
                 returnList.add(t);
             }
         }
@@ -167,6 +173,7 @@ public class ExpenseReport {
     }
 
     // EFFECTS: returns the expenses made in the last 7 days, empty list if none
+    //          returns the expenses in the order they were added
     public List<Expense> filterByWeek() {
         List<Expense> returnList = new ArrayList<>();
         LocalDate l = LocalDate.now().minusDays(7);
@@ -176,6 +183,18 @@ public class ExpenseReport {
             }
         }
         return returnList;
+    }
+
+    //REQUIRES: expenseList is NOT empty
+    //EFFECTS: returns the most recently added expense
+    public Expense getMostRecent() {
+        return expenseList.get(expenseList.size() - 1);
+    }
+
+    //REQUIRES: easyAdd is NOT empty
+    //EFFECTS: returns the most recently added saved expenses
+    public Expense getMostRecentEasyAddExpense() {
+        return easyAdd.get(easyAdd.size() - 1);
     }
 
 
@@ -202,13 +221,7 @@ public class ExpenseReport {
         return budget;
     }
 
-    public Expense getMostRecent() {
-        return expenseList.get(expenseList.size() - 1);
-    }
 
-    public Expense getMostRecentEasyAddExpense() {
-        return easyAdd.get(easyAdd.size() - 1);
-    }
 
 
     // Private Helper Methods
@@ -263,6 +276,7 @@ public class ExpenseReport {
     }
 
     //EFFECTS: returns all Food Expenses
+    //         in the order they were added
     private List<Expense> getFoodExpenses() {
         List<Expense> returnList = new ArrayList<>();
         for (Expense ex : expenseList) {
@@ -274,6 +288,7 @@ public class ExpenseReport {
     }
 
     //EFFECTS: returns all Healthcare Expenses
+    //         in the order they were added
     private List<Expense> getHealthExpenses() {
         List<Expense> returnList = new ArrayList<>();
         for (Expense ex : expenseList) {
@@ -285,6 +300,7 @@ public class ExpenseReport {
     }
 
     //EFFECTS: returns all Housing Expenses
+    //         in the order they were added
     private List<Expense> getHousingExpenses() {
         List<Expense> returnList = new ArrayList<>();
         for (Expense ex : expenseList) {
@@ -296,6 +312,7 @@ public class ExpenseReport {
     }
 
     //EFFECTS: returns all Transportation Expenses
+    //         in the order they were added
     private List<Expense> getTransportationExpenses() {
         List<Expense> returnList = new ArrayList<>();
         for (Expense ex : expenseList) {
@@ -307,6 +324,7 @@ public class ExpenseReport {
     }
 
     //EFFECTS: returns all PersonalExpenses Expenses
+    //         in the order they were added
     private List<Expense> getPersonalExpenses() {
         List<Expense> returnList = new ArrayList<>();
         for (Expense ex : expenseList) {

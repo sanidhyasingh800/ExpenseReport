@@ -15,11 +15,11 @@ public class ExpenseReportTest {
     private Expense expense1;
     private Expense expense2;  // represents expense yesterday
     private Expense expense3;
-    private Expense expense4;  // represents expense less than 7 days ago
+    private Expense expense4;  // represents expense made 6 days ago
     private Expense expense5;
-    private Expense expense6;  // represents expense more than 7 days ago
+    private Expense expense6;  // represents expense made 8 days ago
     private Expense expense7;
-    private Expense expense8;  // represents expense made on 1st of month
+    private Expense expense8;  // represents expense made last year
     private Expense expense9;
     private Expense expense10; // represents expense more than a month ago
     private double budget = 1000;
@@ -272,6 +272,187 @@ public class ExpenseReportTest {
 
     }
 
+    @Test
+    public void testGetExpensesBelowAmountNoneReturned() {
+        testReport.addExpense("PersonalExpense1", 89, "D9", 5);
+        testReport.addExpense("TransportationExpense1", 1.50, "D7",4 );
+        testReport.addExpense("TransportationExpense1", 1.50, "D7",4 );
+        List<Expense> testList = testReport.getExpensesBelowAmount(1);
+        assertEquals(0, testList.size());
+
+    }
+
+    @Test
+    public void testGetExpensesBelowAmount() {
+        testReport.addExpense("PersonalExpense1", 89, "D9", 5);
+        testReport.addExpense("TransportationExpense1", 1.50, "D7",4 );
+        testReport.addExpense("TransportationExpense1", 1.50, "D7",4 );
+        List<Expense> testList = testReport.getExpensesAboveAmount(89);
+        assertEquals(1, testList.size());
+        Expense test = testList.get(0);
+        checkForCorrectExpense(expense9, test);
+
+    }
+
+    @Test
+    public void testGetSpecificCategoryofExpensesNoneReturned() {
+        List<Expense> testList = testReport.getSpecificCategoryOfExpense(1);
+        assertEquals(0, testList.size());
+    }
+
+    @Test
+    public void testGetFoodExpenses() {
+        addAllExpenses();
+        List<Expense> testList = testReport.getSpecificCategoryOfExpense(1);
+        assertEquals(2, testList.size());
+        Expense test = testList.get(0);
+        checkForCorrectExpense(expense1, test);
+        test = testList.get(1);
+        checkForCorrectExpense(expense2, test);
+    }
+
+    @Test
+    public void testGetHealthcareExpenses() {
+        addAllExpenses();
+        List<Expense> testList = testReport.getSpecificCategoryOfExpense(2);
+        assertEquals(2, testList.size());
+        Expense test = testList.get(0);
+        checkForCorrectExpense(expense3, test);
+        test = testList.get(1);
+        checkForCorrectExpense(expense4, test);
+    }
+
+    @Test
+    public void testGetHousingExpenses() {
+        addAllExpenses();
+        List<Expense> testList = testReport.getSpecificCategoryOfExpense(3);
+        assertEquals(2, testList.size());
+        Expense test = testList.get(0);
+        checkForCorrectExpense(expense5, test);
+        test = testList.get(1);
+        checkForCorrectExpense(expense6, test);
+    }
+
+    @Test
+    public void testGetTransportationExpenses() {
+        addAllExpenses();
+        List<Expense> testList = testReport.getSpecificCategoryOfExpense(4);
+        assertEquals(2, testList.size());
+        Expense test = testList.get(0);
+        checkForCorrectExpense(expense7, test);
+        test = testList.get(1);
+        checkForCorrectExpense(expense8, test);
+    }
+
+    @Test
+    public void testGetPersonalExpenses() {
+        addAllExpenses();
+        List<Expense> testList = testReport.getSpecificCategoryOfExpense(5);
+        assertEquals(2, testList.size());
+        Expense test = testList.get(0);
+        checkForCorrectExpense(expense9, test);
+        test = testList.get(1);
+        checkForCorrectExpense(expense10, test);
+    }
+
+    @Test
+    public void testFilterByDayNoneReturned() {
+        List<Expense> testList = testReport.filterByDay();
+        assertEquals(0, testList.size());
+    }
+
+    @Test
+    public void testFilterByDay() {
+        addAllExpenses();
+        List<Expense> testList = testReport.filterByDay();
+        assertEquals(5, testList.size());
+        Expense test = testList.get(0);
+        checkForCorrectExpense(expense1, test);
+        test = testList.get(1);
+        checkForCorrectExpense(expense3, test);
+        test = testList.get(2);
+        checkForCorrectExpense(expense5, test);
+        test = testList.get(3);
+        checkForCorrectExpense(expense7, test);
+        test = testList.get(4);
+        checkForCorrectExpense(expense9, test);
+    }
+
+    @Test
+    public void testFilterByWeekNoneReturned() {
+        List<Expense> testList = testReport.filterByWeek();
+        assertEquals(0, testList.size());
+    }
+
+    @Test
+    public void testFilterByWeek() {
+        addAllExpenses();
+        List<Expense> testList = testReport.filterByWeek();
+        Expense test = testList.get(0);
+        assertEquals(7, testList.size());
+        checkForCorrectExpense(expense1, test);
+        test = testList.get(1);
+        checkForCorrectExpense(expense2, test);
+        test = testList.get(2);
+        checkForCorrectExpense(expense3, test);
+        test = testList.get(3);
+        checkForCorrectExpense(expense4, test);
+        test = testList.get(4);
+        checkForCorrectExpense(expense5, test);
+        test = testList.get(5);
+        checkForCorrectExpense(expense7, test);
+        test = testList.get(6);
+        checkForCorrectExpense(expense9, test);
+    }
+
+    @Test
+    public void testFilterByMonthNoneReturned() {
+        List<Expense> testList = testReport.filterByMonth();
+        assertEquals(0, testList.size());
+    }
+
+    @Test
+    public void testFilterByMonth() {
+        addAllExpenses();
+        List<Expense> testList = testReport.filterByMonth();
+        assertEquals(8, testList.size());
+        Expense test = testList.get(0);
+        checkForCorrectExpense(expense1, test);
+        test = testList.get(1);
+        checkForCorrectExpense(expense2, test);
+        test = testList.get(2);
+        checkForCorrectExpense(expense3, test);
+        test = testList.get(3);
+        checkForCorrectExpense(expense4, test);
+        test = testList.get(4);
+        checkForCorrectExpense(expense5, test);
+        test = testList.get(5);
+        checkForCorrectExpense(expense6, test);
+        test = testList.get(6);
+        checkForCorrectExpense(expense7, test);
+        test = testList.get(7);
+        checkForCorrectExpense(expense9, test);
+    }
+
+
+    @Test
+    public void testChangeBudget() {
+        testReport.changeBudget(2000);
+        assertEquals(2000, testReport.getBudget());
+    }
+
+    @Test
+    public void testGetMostRecent() {
+        addAllExpenses();
+        checkForCorrectExpense(expense10, testReport.getMostRecent());
+    }
+
+    @Test
+    public void testGetMostRecentSavedExpense() {
+        testReport.addEasyExpense("HealthExpense1", 738, "D3", 2);
+        checkForCorrectExpense(expense3, testReport.getMostRecentEasyAddExpense());
+    }
+
 
     // Private Helpers
 
@@ -284,56 +465,58 @@ public class ExpenseReportTest {
 
     private void addAllExpenses() {
         testReport.addExpense("FoodExpense1", 100, "D1", 1);
-        testReport.addExpenseWithTime("FoodExpense2", 150, "D1", 1,
+        testReport.addExpenseWithTime("FoodExpense2", 150, "D2", 1,
                 LocalDate.now().getYear(),
                 LocalDate.now().getMonthValue(),
                 LocalDate.now().minusDays(1).getDayOfMonth());
         testReport.addExpense("HealthExpense1", 738, "D3", 2);
-        testReport.addExpenseWithTime("HealthExpense2", 50, "D3", 2,
+        testReport.addExpenseWithTime("HealthExpense2", 50, "D4", 2,
                 LocalDate.now().getYear(),
                 LocalDate.now().getMonthValue(),
                 LocalDate.now().minusDays(6).getDayOfMonth());
         testReport.addExpense("HousingExpense1", 25, "D5", 3);
-        testReport.addExpenseWithTime("HousingExpense2", 150, "D5", 3,
+        testReport.addExpenseWithTime("HousingExpense2", 150, "D6", 3,
                 LocalDate.now().getYear(),
                 LocalDate.now().getMonthValue(),
                 1);
         testReport.addExpense("TransportationExpense1", 1.50, "D7",4 );
-        testReport.addExpenseWithTime("TransportationExpense2", 63.79, "D7", 4,
-                LocalDate.now().getYear(),
-                LocalDate.now().getMonthValue(), 1);
-        testReport.addExpense("PersonalExpense1", 89, "D9", 5);
-        testReport.addExpenseWithTime("PersonalExpense2", 450, "D9", 5,
-                LocalDate.now().getYear(),
-                LocalDate.now().getMonthValue() -1,
+        testReport.addExpenseWithTime("TransportationExpense2", 63.79, "D8", 4,
+                LocalDate.now().minusYears(1).getYear(),
+                LocalDate.now().getMonthValue(),
                 LocalDate.now().getDayOfMonth());
+        testReport.addExpense("PersonalExpense1", 89, "D9", 5);
+        testReport.addExpenseWithTime("PersonalExpense2", 450, "D10", 5,
+                LocalDate.now().minusDays(31).getYear(),
+                LocalDate.now().minusDays(31).getMonthValue(),
+                LocalDate.now().minusDays(31).getDayOfMonth());
     }
 
     private void initializeExpenses() {
         expense1 = new FoodExpense("FoodExpense1", 100, "D1");
-        expense2 = new FoodExpense("FoodExpense2", 150, "D1",
+        expense2 = new FoodExpense("FoodExpense2", 150, "D2",
                                     LocalDate.now().getYear(),
                                     LocalDate.now().getMonthValue(),
                                     LocalDate.now().minusDays(1).getDayOfMonth());
         expense3 = new HealthcareExpense("HealthExpense1", 738, "D3");
-        expense4 = new HealthcareExpense("HealthExpense2", 50, "D3",
+        expense4 = new HealthcareExpense("HealthExpense2", 50, "D4",
                                         LocalDate.now().getYear(),
                                         LocalDate.now().getMonthValue(),
                                         LocalDate.now().minusDays(6).getDayOfMonth());
         expense5 = new HousingExpense("HousingExpense1", 25, "D5");
-        expense6 = new HousingExpense("HousingExpense2", 150, "D5",
+        expense6 = new HousingExpense("HousingExpense2", 150, "D6",
                                     LocalDate.now().getYear(),
                                     LocalDate.now().getMonthValue(),
-                                    1);
+                                    LocalDate.now().minusDays(8).getDayOfMonth());
         expense7 = new TransportationExpense("TransportationExpense1", 1.50, "D7");
-        expense8 = new TransportationExpense("TransportationExpense2", 63.79, "D7",
-                                            LocalDate.now().getYear(),
-                                            LocalDate.now().getMonthValue(), 1);
+        expense8 = new TransportationExpense("TransportationExpense2", 63.79, "D8",
+                                            LocalDate.now().minusYears(1).getYear(),
+                                            LocalDate.now().getMonthValue(),
+                                            LocalDate.now().getDayOfMonth());
         expense9 = new PersonalExpense("PersonalExpense1", 89, "D9");
-        expense10 = new PersonalExpense("PersonalExpense2", 450, "D9",
-                                        LocalDate.now().getYear(),
-                                        LocalDate.now().getMonthValue() -1,
-                                        LocalDate.now().getDayOfMonth());
+        expense10 = new PersonalExpense("PersonalExpense2", 450, "D10",
+                                        LocalDate.now().minusDays(31).getYear(),
+                                        LocalDate.now().minusDays(31).getMonthValue(),
+                                        LocalDate.now().minusDays(31).getDayOfMonth());
     }
 
 }
