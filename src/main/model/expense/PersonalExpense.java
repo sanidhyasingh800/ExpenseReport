@@ -1,5 +1,8 @@
 package model.expense;
 
+// Represents an Expense related to Personal Costs, allows users to label each purchase as a need or want to
+// better track spending habits
+// Other functionality extended from expense
 public class PersonalExpense extends Expense {
     private boolean need;
 

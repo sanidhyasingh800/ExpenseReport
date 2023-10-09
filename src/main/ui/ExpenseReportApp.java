@@ -7,18 +7,24 @@ import model.StatisticsReport;
 import java.util.Scanner;
 import java.util.List;
 
+// Displays and Runs the Expense Report App. Provides options for users to add, save, and delete expenses
+// Users can view expenses filter by parameters such as category, cost, and time as well as view
+// statistics based on their reports. Users can also set a budget for their report and view customized
+// statistics for each time of expense (food, housing, health, transportation, personal)
 public class ExpenseReportApp {
     private ExpenseReport expenseReport;
     private StatisticsReport statisticsReport;
     private Scanner user;
     private boolean quit;
 
-
+    // EFFECTS: Runs the Expense Report App
     public ExpenseReportApp() {
         runApplication();
         quit = false;
     }
 
+    // MODIFIES: this
+    // EFFECTS: prints the start-up menu, continues execution until user chooses to quit
     private void runApplication() {
         setUp();
         String userInput;
@@ -32,7 +38,9 @@ public class ExpenseReportApp {
         }
     }
 
-
+    // MODIFIES: this
+    // EFFECTS: sets up the scanner object to read after each newline character,
+    //          sets the budget for the Expense Report
     private void setUp() {
         // Set up scanner
         user = new Scanner(System.in);
@@ -45,6 +53,8 @@ public class ExpenseReportApp {
 
     }
 
+
+    // EFFECTS: displays the options for users to proceed
     private void showOptions() {
         System.out.println("Please select an Option!");
         System.out.println("Press a to add an Expense");
@@ -59,6 +69,8 @@ public class ExpenseReportApp {
         System.out.println("Press q to quit");
     }
 
+    //MODIFIES: this
+    // EFFECTS: configures the user's command the performs the given action
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void configureCommand(String userInput) {
         switch (userInput) {
@@ -95,6 +107,7 @@ public class ExpenseReportApp {
         }
     }
 
+    // EFFECTS: configures the command provided by the user regarding Time Filtering
     private void breakDownByTime() {
         String choice = provideTimeCommands();
         switch (choice) {
@@ -135,6 +148,7 @@ public class ExpenseReportApp {
 
     }
 
+    // EFFECTS: prints the options available to filter by timeframe, returns the input from user
     private String provideTimeCommands() {
         System.out.println("Press d to view all expenses today");
         System.out.println("Press w to view all expenses this week");
@@ -142,6 +156,8 @@ public class ExpenseReportApp {
         return user.next();
     }
 
+    //MODIFIES: this
+    //EFFECTS: changes the budget of the report to the amount provided by user
     private void changeBudget() {
         System.out.println("Enter new Budget");
         double budget = user.nextDouble();
@@ -149,7 +165,8 @@ public class ExpenseReportApp {
         System.out.println("New budget is " + budget);
     }
 
-
+    // MODIFIES : this
+    // EFFECTS: provides options to user regarding saved expenses and performs given command
     private void recurringExpensesOptions() {
         System.out.println("Press v to view all recurring expenses");
         System.out.println("Press a to set up a new recurring expense");
@@ -173,6 +190,8 @@ public class ExpenseReportApp {
 
     }
 
+    //MODIFIES: this
+    //EFFECTS: adds the saved expense identified by user to the overall expense report
     private void addRecurringExpenseToReport() {
         viewRecurringExpenses();
         if (expenseReport.getEasyAdd().size() == 0) {
@@ -184,6 +203,8 @@ public class ExpenseReportApp {
         System.out.println("Expense Added!");
     }
 
+    // MODIFIES: this
+    // EFFECTS: deletes the saved expense stored at the index given by the user
     private void removeRecurringExpense() {
         viewRecurringExpenses();
         System.out.println("Select the index of the expense you no longer need");
@@ -192,11 +213,13 @@ public class ExpenseReportApp {
         System.out.println("Expense Forgotten!");
     }
 
+    // EFFECTS: prints all the saved expenses
     private void viewRecurringExpenses() {
         List<Expense> list = expenseReport.getEasyAdd();
         displayList(list);
     }
 
+    // EFFECTS: provides users with the options to view different statistics and performs command
     private void viewStatistics() {
         String choice = displayStatisticsOptions();
         switch (choice) {
@@ -219,6 +242,7 @@ public class ExpenseReportApp {
         }
     }
 
+    // EFFECTS: provides users with the choice to view the statistics of different categories
     private void viewStatisticsByCategory() {
         int choice = displayCategories();
         switch (choice) {
@@ -240,6 +264,8 @@ public class ExpenseReportApp {
         }
     }
 
+    // EFFECTS: prints the statistics related to food expenses
+    //          such as average cost per food item
     private void statisticsForFood() {
         List<Expense> list = expenseReport.getSpecificCategoryOfExpense(1);
         System.out.println("Average Cost Per Food Item: " + statisticsReport.getAverageAmountPerFoodItem());
@@ -255,6 +281,8 @@ public class ExpenseReportApp {
         }
     }
 
+    // EFFECTS: prints the statistics related to health expenses
+    //          such as insurance savings
     private void statisticsForHealth() {
         System.out.println("Insurance has saved you " + statisticsReport.totalAmountSaved());
         System.out.println("Insurance has covered " + statisticsReport.percentageCoveredByInsurance()
@@ -262,6 +290,8 @@ public class ExpenseReportApp {
 
     }
 
+    // EFFECTS: prints the statistics related to housing costs
+    //          such as cost of each bill
     private void statisticsForHousing() {
         List<Double> list = statisticsReport.getBillsSummary();
         System.out.println("Amount spent on Water Bills " + list.get(0));
@@ -272,6 +302,8 @@ public class ExpenseReportApp {
 
     }
 
+    // EFFECTS: prints the statistics related to transportation costs
+    //          such as cost associated with each method of transportation
     private void statisticsForTransportation() {
         System.out.println("Amount spent on Eco-Friendly travel: "
                             + statisticsReport.totalSpentOnGreenEnergy());
@@ -282,6 +314,8 @@ public class ExpenseReportApp {
 
     }
 
+    // EFFECTS: prints the statistics related to personal costs
+    //          such as cost needs and wants
     private void statisticsForPersonal() {
         System.out.println("Amount on money spent on Needs: "
                 + statisticsReport.totalAmountOnNeeds());
@@ -291,7 +325,7 @@ public class ExpenseReportApp {
     }
 
 
-
+    // EFFECTS: prints the average cost of an expense overall and in each category
     private void viewAverages() {
         double total = statisticsReport.averageCost();
         System.out.println("Your Average Expense costs " + total);
@@ -308,6 +342,7 @@ public class ExpenseReportApp {
         System.out.println();
     }
 
+    // EFFECTS: prints the percentage of total money spent in each category
     private void viewPercentages() {
         double total = statisticsReport.percentageOfCategory(1);
         System.out.println("You Spent " + total + "% on Food");
@@ -321,6 +356,7 @@ public class ExpenseReportApp {
         System.out.println("You Spent " + total + "% on Personal Expenses");
     }
 
+    // EFFECTS: prints the total amount spent overall and for each category
     private void viewTotalSpending() {
         double total = statisticsReport.totalSpending();
         System.out.println("Your Total Spending is " + total + " with "
@@ -337,6 +373,7 @@ public class ExpenseReportApp {
         System.out.println("You Spent " + total + " on Personal Expenses");
     }
 
+    // EFFECTS: prints the total number of expenses overall and in each category
     private void viewTotalExpenses() {
         int total = statisticsReport.totalExpenses();
         System.out.println("Your Total Number of Expenses is " + total);
@@ -352,6 +389,7 @@ public class ExpenseReportApp {
         System.out.println("You have " + total + " expenses on Personal Expenses");
     }
 
+    //EFFECTS: displays the statistics processing options available and returns the user input
     private String displayStatisticsOptions() {
         System.out.println("Press t to view Total Spending");
         System.out.println("Press p to view Percentage Statistics");
@@ -361,6 +399,7 @@ public class ExpenseReportApp {
         return user.next();
     }
 
+    // EFFECTS: terminates the app.
     private void quit() {
         System.out.println("Thank you for using ExpenseTracker!");
         quit = true;
@@ -368,6 +407,7 @@ public class ExpenseReportApp {
 
     }
 
+    // EFFECTS: prompts user to filter above or below cost and displays the respective list of expenses
     private void viewCostFilteredExpenses() {
         System.out.println("Enter amount you would like to filter by: ");
         int amount = user.nextInt();
@@ -382,18 +422,21 @@ public class ExpenseReportApp {
         }
     }
 
+    //EFFECTS: prints all expenses above or equal to amount
     private void displayExpensesBelow(int amount) {
         List<Expense> list = expenseReport.getExpensesBelowAmount(amount);
         displayList(list);
 
     }
 
+    //EFFECTS: prints all expenses below or equal to amount
     private void displayExpensesAbove(int amount) {
         List<Expense> list = expenseReport.getExpensesAboveAmount(amount);
         displayList(list);
 
     }
 
+    //EFFECTS: prints all expenses within a specified category
     private void viewCategory() {
         int choice = displayCategories();
         List<Expense> list = expenseReport.getSpecificCategoryOfExpense(choice);
@@ -401,6 +444,7 @@ public class ExpenseReportApp {
 
     }
 
+    // EFFECTS: provides the category index and returns the user input
     private int displayCategories() {
         System.out.println("Press 1 for Food Expenses");
         System.out.println("Press 2 for Health Expenses");
@@ -410,11 +454,14 @@ public class ExpenseReportApp {
         return user.nextInt();
     }
 
+    // EFFECTS: prints all expenses in a list
     private void viewAllExpense() {
         List<Expense> list = expenseReport.getExpenses();
         displayList(list);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds the user-inputted expense to the expense report
     private void addExpenses(int whichList) {
         System.out.println("Enter the category index of your expense:");
         int category = displayCategories();
@@ -438,6 +485,10 @@ public class ExpenseReportApp {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: configures a food expense as per user input and adds it to:
+    //          whichList = 1 (Expense Report)
+    //          whichList = 2 (Saved Expenses)
     private void setUpFoodExpense(int whichList) {
         Expense ex = expenseBasicSetUp(1, whichList);
         System.out.println("Press y to enter a list of food items to this expense, n to skip");
@@ -449,6 +500,8 @@ public class ExpenseReportApp {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds a list of foods to the food expense being added
     private void setUpFoodList(Expense ex) {
         boolean cont = true;
         while (cont) {
@@ -463,6 +516,10 @@ public class ExpenseReportApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: configures a Health expense as per user input and adds it to:
+    //          whichList = 1 (Expense Report)
+    //          whichList = 2 (Saved Expenses)
     private void setUpHealthCareExpense(int whichList) {
         Expense ex = expenseBasicSetUp(2, whichList);
         System.out.println("Press i to add any amount covered by Insurance, n to skip");
@@ -476,6 +533,10 @@ public class ExpenseReportApp {
         System.out.println("Expense item: " + ex.getName() + " added!");
     }
 
+    // MODIFIES: this
+    // EFFECTS: configures a Housing expense as per user input and adds it to:
+    //          whichList = 1 (Expense Report)
+    //          whichList = 2 (Saved Expenses)
     private void setUpHousingExpense(int whichList) {
         Expense ex = expenseBasicSetUp(3, whichList);
         System.out.println("Press y to label expense as a bill, n to skip");
@@ -488,6 +549,7 @@ public class ExpenseReportApp {
         System.out.println("Expense item: " + ex.getName() + " added!");
     }
 
+    //EFFECTS: displays the Bill Index and returns user input
     private int displayBillIndices() {
         System.out.println("Enter 1 to add a Water Bill");
         System.out.println("Enter 2 to add an Electricity Bill");
@@ -497,6 +559,10 @@ public class ExpenseReportApp {
         return user.nextInt();
     }
 
+    // MODIFIES: this
+    // EFFECTS: configures a transportation expense as per user input and adds it to:
+    //          whichList = 1 (Expense Report)
+    //          whichList = 2 (Saved Expenses)
     private void setUpTransportationExpense(int whichList) {
         Expense ex = expenseBasicSetUp(4, whichList);
         System.out.println("Press y to label transportation type, n to skip");
@@ -511,6 +577,10 @@ public class ExpenseReportApp {
         System.out.println("Expense item: " + ex.getName() + " added!");
     }
 
+    // MODIFIES: this
+    // EFFECTS: configures a Personal expense as per user input and adds it to:
+    //          whichList = 1 (Expense Report)
+    //          whichList = 2 (Saved Expenses)
     private void setUpPersonalExpense(int whichList) {
         Expense ex = expenseBasicSetUp(5, whichList);
         System.out.println("Press n to classify expense as a need");
@@ -524,6 +594,10 @@ public class ExpenseReportApp {
         System.out.println("Expense item: " + ex.getName() + " added!");
     }
 
+    // MODIFIES: this
+    // EFFECTS: configures a basic Expense (name, cost, description) as per user input and adds it to:
+    //          whichList = 1 (Expense Report)
+    //          whichList = 2 (Saved Expenses)
     private Expense expenseBasicSetUp(int category, int whichList) {
         System.out.println("Enter the name of your expense:");
         String name = user.next();
@@ -540,7 +614,8 @@ public class ExpenseReportApp {
         }
     }
 
-
+    // MODIFIES: this
+    // EFFECTS: provides users with different ways to remove expenses and performs the given method of removing
     private void removeExpense() {
         viewAllExpense();
         if (expenseReport.getExpenses().size() == 0) {
@@ -563,6 +638,7 @@ public class ExpenseReportApp {
         viewAllExpense();
     }
 
+    // EFFECTS: provides a break between commands and waits for user to press enter
     private void breakBetweenCommands() {
         System.out.println("Press enter to continue");
         user.next();
@@ -596,6 +672,8 @@ public class ExpenseReportApp {
         }
     }
 
+    // EFFECTS: provides a fixed method to print all lists of expenses,
+    //          prints "No Expenses Yet" if list is empty
     private void displayList(List<Expense> list) {
         if (list.size() == 0) {
             System.out.println("No Expenses Yet!");
@@ -606,6 +684,8 @@ public class ExpenseReportApp {
         }
     }
 
+    // EFFECTS: prints an expense in the format
+    //          index. Category-Name: cost  Description
     private void displayGeneralExpense(List<Expense> list, Expense ex) {
         int index = list.indexOf(ex) + 1;
         if (ex instanceof FoodExpense) {

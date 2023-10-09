@@ -1,9 +1,11 @@
 package model.expense;
 
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 
+// Represents an Expense related to food, allows users to add a list of food items purchased in each expense
+// Other functionality extended from expense
 public class FoodExpense extends Expense {
     private List<String> foodItems;
 

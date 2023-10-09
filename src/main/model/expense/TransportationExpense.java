@@ -1,5 +1,8 @@
 package model.expense;
 
+// Represents an Expense related to Transportation Costs, allows users to label each expense as a
+// green energy, public, or personal form of transportation
+// Other functionality extended from expense
 public class TransportationExpense extends Expense {
     private int typeOfTransportation;
 

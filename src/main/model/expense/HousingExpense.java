@@ -1,5 +1,8 @@
 package model.expense;
 
+// Represents an Expense related to Living Costs, allows users to identify each living expense with a type of bill
+// User can choose from water, electricity, Trash, Internet, rent, and mortgage
+// Other functionality extended from expense
 public class HousingExpense extends Expense {
     private int typeofBill;
 

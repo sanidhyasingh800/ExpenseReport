@@ -1,5 +1,7 @@
 package model.expense;
 
+// Represents an Expense related to Healthcare, allows users deduct insurance covered costs
+// Other functionality extended from expense
 public class HealthcareExpense extends Expense {
     private double amountCovered = 0;
 
