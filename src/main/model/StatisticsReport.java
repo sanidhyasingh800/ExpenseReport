@@ -1,11 +1,14 @@
 package model;
 
-import model.expense.Expense;
+import model.expense.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 // Provides information about the statistics, total spending, average spending
 // and more for an Expense Report. Provides information of expenses tracked over
-// a day, week, and month, Does more than just store and return expenses
-// like ExpenseReport
+// a day, week, and month. Provides personalized statistics for each type of expense as well.
 public class StatisticsReport {
     private final ExpenseReport expenseReport;
 
@@ -137,5 +140,131 @@ public class StatisticsReport {
         }
         return totalSpendingMonthly() / totalExpensesMonthly();
     }
+
+    // Personalized Statistics for each type of expense
+
+    // Food:
+
+    // EFFECTS: returns the average cost of a food item bought overall in all Food Expenses
+    public double getAverageAmountPerFoodItem() {
+        List<Expense> list = expenseReport.getSpecificCategoryOfExpense(1);
+        int totalItems = 0;
+        double amountSpent = 0;
+        for (Expense ex: list) {
+            totalItems += ((FoodExpense) ex).getFoodItems().size();
+            amountSpent += ex.getAmount();
+        }
+        return amountSpent / totalItems;
+    }
+
+    // Healthcare:
+
+    // EFFECTS: returns the total amount saved due to Insurance
+    public double totalAmountSaved() {
+        List<Expense> list = expenseReport.getSpecificCategoryOfExpense(2);
+        double total = 0;
+        for (Expense ex : list) {
+            total += ((HealthcareExpense) ex).getAmountCovered();
+        }
+        return total;
+    }
+
+    //EFFECTS: returns the percentage of healthcare expenses covered by Insurance
+    public double percentageCoveredByInsurance() {
+        List<Expense> list = expenseReport.getSpecificCategoryOfExpense(2);
+        double total = 0;
+        for (Expense ex : list) {
+            if (((HealthcareExpense) ex).getAmountCovered() > 0) {
+                total++;
+            }
+        }
+        return total / list.size();
+    }
+
+    // Housing:
+
+    //EFFECTS: returns a list of double of length 5 with
+    //         0th index storing total spent on water bills
+    //         1st index storing total spent on electricity bills
+    //         2nd index storing total spent on trash Bills
+    //         3rd index storing total spent on internet Bills
+    //         4th index storing total spent on rent or mortgage
+    public List<Double> getBillsSummary() {
+        List<Expense> list = expenseReport.getSpecificCategoryOfExpense(3);
+        List<Double> returnList = new ArrayList<>(Collections.nCopies(5, 0.0));
+        for (Expense ex: list) {
+            if (((HousingExpense) ex).getTypeofBill() != 0) {
+                returnList.set(((HousingExpense) ex).getTypeofBill() - 1, ex.getAmount());
+            }
+        }
+        return returnList;
+    }
+
+    // Transportation
+
+    //EFFECTS: returns the total amount spent on Green Methods of Transportation
+    public double totalSpentOnGreenEnergy() {
+        List<Expense> list = expenseReport.getSpecificCategoryOfExpense(4);
+        double total = 0;
+        for (Expense ex : list) {
+            if (((TransportationExpense) ex).getTypeOfTransportation() == 1) {
+                total += ex.getAmount();
+            }
+        }
+        return total;
+    }
+
+    //EFFECTS: returns the total amount spent on Green Methods of Transportation
+    public double totalSpentOnPublicTransportation() {
+        List<Expense> list = expenseReport.getSpecificCategoryOfExpense(4);
+        double total = 0;
+        for (Expense ex : list) {
+            if (((TransportationExpense) ex).getTypeOfTransportation() == 2) {
+                total += ex.getAmount();
+            }
+        }
+        return total;
+    }
+
+    //EFFECTS: returns the total amount spent on Green Methods of Transportation
+    public double totalSpentOnPersonalTransportation() {
+        List<Expense> list = expenseReport.getSpecificCategoryOfExpense(4);
+        double total = 0;
+        for (Expense ex : list) {
+            if (((TransportationExpense) ex).getTypeOfTransportation() == 3) {
+                total += ex.getAmount();
+            }
+        }
+        return total;
+    }
+
+    // Personal:
+
+    // EFFECTS: returns the amount spent of personal expenses on needs
+    public double totalAmountOnNeeds() {
+        List<Expense> list = expenseReport.getSpecificCategoryOfExpense(5);
+        double total = 0;
+        for (Expense ex : list) {
+            if (((PersonalExpense) ex).isNeed()) {
+                total += ex.getAmount();
+            }
+        }
+        return total;
+    }
+
+    // EFFECTS: returns the amount spent of personal expenses on wants
+    public double totalAmountOnWants() {
+        List<Expense> list = expenseReport.getSpecificCategoryOfExpense(5);
+        double total = 0;
+        for (Expense ex : list) {
+            if (!((PersonalExpense) ex).isNeed()) {
+                total += ex.getAmount();
+            }
+        }
+        return total;
+    }
+
+
+
 
 }

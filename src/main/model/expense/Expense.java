@@ -28,24 +28,12 @@ public abstract class Expense {
         dateOfCreation = LocalDate.of(year, month, day);
     }
 
-    // MODIFIES: this
-    // EFFECTS: changes the name of the expense to newName
-    public void changeName(String newName) {
-        name = newName;
-    }
-
     //REQUIRES: newAmount >= 0.00
     //MODIFIERS: this
     //EFFECTS: changes the cost of the expense to newAmount
     public void changeExpense(double newAmount) {
         amount = newAmount;
 
-    }
-
-    // MODIFIES: this
-    // EFFECTS: changes the name of the expense to newDescription
-    public void changeDescription(String newDescription) {
-        description = newDescription;
     }
 
     // Getters:

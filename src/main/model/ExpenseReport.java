@@ -7,7 +7,7 @@ import java.util.List;
 import java.time.LocalDate;
 
 // Represents an Expense Report that allows you to add and remove Expenses
-// and provides functionality to return all expenses, filter by category, and by cost
+// and provides functionality to return all expenses, filter by category, cost, and time
 public class ExpenseReport {
     private final List<Expense> expenseList;
     private final List<Expense> easyAdd;
@@ -17,8 +17,8 @@ public class ExpenseReport {
     // EFFECTS: constructs a new Expense Report with the given budget
     //          and no expenses added
     public ExpenseReport(double budget) {
-        expenseList = new ArrayList<Expense>();
-        easyAdd = new ArrayList<Expense>();
+        expenseList = new ArrayList<>();
+        easyAdd = new ArrayList<>();
         this.budget = budget;
     }
 
@@ -39,9 +39,7 @@ public class ExpenseReport {
     // MODIFIES: this
     // EFFECTS: adds the expense at index from saved expenses to expense report
     public void addEasyExpenseToReport(int index) {
-        Expense ex = easyAdd.get(index);
-        int categoryIndex = getCategoryIndex(ex);
-        addExpense(ex.getName(),ex.getAmount(), ex.getDescription(), categoryIndex);
+        expenseList.add(easyAdd.get(index));
     }
 
     // REQUIRES: amount >= 0 and category is one of (1,2,3,4,5)
@@ -190,23 +188,12 @@ public class ExpenseReport {
         return budget;
     }
 
-    public int getIndexOf(Expense ex) {
-        return expenseList.indexOf(ex);
+    public Expense getMostRecent() {
+        return expenseList.get(expenseList.size() - 1);
     }
 
-    public int getCategoryIndex(Expense ex) {
-        if (ex instanceof FoodExpense) {
-            return 1;
-        } else if (ex instanceof HealthcareExpense) {
-            return 2;
-        } else if (ex instanceof HousingExpense) {
-            return 3;
-        } else if (ex instanceof TransportationExpense) {
-            return 4;
-        } else if (ex instanceof PersonalExpense) {
-            return 5;
-        }
-        return 0;
+    public Expense getMostRecentEasyAddExpense() {
+        return easyAdd.get(easyAdd.size() - 1);
     }
 
 
@@ -237,7 +224,7 @@ public class ExpenseReport {
 
     //EFFECTS: returns all Food Expenses
     private List<Expense> getFoodExpenses() {
-        List<Expense> returnList = new ArrayList<Expense>();
+        List<Expense> returnList = new ArrayList<>();
         for (Expense ex : expenseList) {
             if (ex instanceof FoodExpense) {
                 returnList.add(ex);
@@ -248,7 +235,7 @@ public class ExpenseReport {
 
     //EFFECTS: returns all Healthcare Expenses
     private List<Expense> getHealthExpenses() {
-        List<Expense> returnList = new ArrayList<Expense>();
+        List<Expense> returnList = new ArrayList<>();
         for (Expense ex : expenseList) {
             if (ex instanceof HealthcareExpense) {
                 returnList.add(ex);
@@ -259,7 +246,7 @@ public class ExpenseReport {
 
     //EFFECTS: returns all Housing Expenses
     private List<Expense> getHousingExpenses() {
-        List<Expense> returnList = new ArrayList<Expense>();
+        List<Expense> returnList = new ArrayList<>();
         for (Expense ex : expenseList) {
             if (ex instanceof HousingExpense) {
                 returnList.add(ex);
@@ -270,7 +257,7 @@ public class ExpenseReport {
 
     //EFFECTS: returns all Transportation Expenses
     private List<Expense> getTransportationExpenses() {
-        List<Expense> returnList = new ArrayList<Expense>();
+        List<Expense> returnList = new ArrayList<>();
         for (Expense ex : expenseList) {
             if (ex instanceof TransportationExpense) {
                 returnList.add(ex);
@@ -281,7 +268,7 @@ public class ExpenseReport {
 
     //EFFECTS: returns all PersonalExpenses Expenses
     private List<Expense> getPersonalExpenses() {
-        List<Expense> returnList = new ArrayList<Expense>();
+        List<Expense> returnList = new ArrayList<>();
         for (Expense ex : expenseList) {
             if (ex instanceof PersonalExpense) {
                 returnList.add(ex);

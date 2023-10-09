@@ -63,7 +63,7 @@ public class ExpenseReportApp {
     private void configureCommand(String userInput) {
         switch (userInput) {
             case "a":
-                addExpenses();
+                addExpenses(1);
                 break;
             case "x":
                 recurringExpensesOptions();
@@ -161,7 +161,7 @@ public class ExpenseReportApp {
                 viewRecurringExpenses();
                 break;
             case "a":
-                addNewRecurringExpense();
+                addExpenses(2);
                 break;
             case "r":
                 removeRecurringExpense();
@@ -192,20 +192,6 @@ public class ExpenseReportApp {
         System.out.println("Expense Forgotten!");
     }
 
-    private void addNewRecurringExpense() {
-        System.out.println("Enter the name of your expense:");
-        String name = user.next();
-        System.out.println("Enter the category index of your expense:");
-        int category = displayCategories();
-        System.out.println("Enter the cost of your expense");
-        double cost = user.nextDouble();
-        System.out.println("Enter the description of your expense: ");
-        String description = user.next();
-        expenseReport.addEasyExpense(name, cost, description, category);
-        System.out.println("Expense item: " + name + " Saved!");
-
-    }
-
     private void viewRecurringExpenses() {
         List<Expense> list = expenseReport.getEasyAdd();
         displayList(list);
@@ -226,9 +212,85 @@ public class ExpenseReportApp {
             case "s" :
                 viewTotalExpenses();
                 break;
+            case "c":
+                viewStatisticsByCategory();
+                break;
 
         }
     }
+
+    private void viewStatisticsByCategory() {
+        int choice = displayCategories();
+        switch (choice) {
+            case 1:
+                statisticsForFood();
+                break;
+            case 2:
+                statisticsForHealth();
+                break;
+            case 3:
+                statisticsForHousing();
+                break;
+            case 4:
+                statisticsForTransportation();
+                break;
+            case 5:
+                statisticsForPersonal();
+                break;
+        }
+    }
+
+    private void statisticsForFood() {
+        List<Expense> list = expenseReport.getSpecificCategoryOfExpense(1);
+        System.out.println("Average Cost Per Food Item: " + statisticsReport.getAverageAmountPerFoodItem());
+        displayList(list);
+        System.out.println("Type in the index of any expense to view the foods bought");
+        System.out.println("Type -1 to skip");
+        int choice = user.nextInt();
+        if (choice != -1) {
+            Expense ex = list.get(choice - 1);
+            for (String food : ((FoodExpense) ex).getFoodItems()) {
+                System.out.println(food);
+            }
+        }
+    }
+
+    private void statisticsForHealth() {
+        System.out.println("Insurance has saved you " + statisticsReport.totalAmountSaved());
+        System.out.println("Insurance has covered " + statisticsReport.percentageCoveredByInsurance()
+                            + " of all Healthcare Expenses");
+
+    }
+
+    private void statisticsForHousing() {
+        List<Double> list = statisticsReport.getBillsSummary();
+        System.out.println("Amount spent on Water Bills " + list.get(0));
+        System.out.println("Amount spent on Electricity Bills " + list.get(1));
+        System.out.println("Amount spent on Trash/Recycling " + list.get(2));
+        System.out.println("Amount spent on Internet " + list.get(3));
+        System.out.println("Amount spent on Rent/Mortgage " + list.get(4));
+
+    }
+
+    private void statisticsForTransportation() {
+        System.out.println("Amount spent on Eco-Friendly travel: "
+                            + statisticsReport.totalSpentOnGreenEnergy());
+        System.out.println("Amount spent on Public Transportation: "
+                + statisticsReport.totalSpentOnPublicTransportation());
+        System.out.println("Amount spent on Private Transportation: "
+                + statisticsReport.totalSpentOnPersonalTransportation());
+
+    }
+
+    private void statisticsForPersonal() {
+        System.out.println("Amount on money spent on Needs: "
+                + statisticsReport.totalAmountOnNeeds());
+        System.out.println("Amount on money spent on Wants: "
+                + statisticsReport.totalAmountOnWants());
+
+    }
+
+
 
     private void viewAverages() {
         double total = statisticsReport.averageCost();
@@ -295,6 +357,7 @@ public class ExpenseReportApp {
         System.out.println("Press p to view Percentage Statistics");
         System.out.println("Press a to view Average Expense Cost");
         System.out.println("Press s to view Total Number of Expenses and more");
+        System.out.println("Press c to view statistics by categories");
         return user.next();
     }
 
@@ -352,19 +415,131 @@ public class ExpenseReportApp {
         displayList(list);
     }
 
-    private void addExpenses() {
-        System.out.println("Enter the name of your expense:");
-        String name = user.next();
+    private void addExpenses(int whichList) {
         System.out.println("Enter the category index of your expense:");
         int category = displayCategories();
+        switch (category) {
+            case 1:
+                setUpFoodExpense(whichList);
+                break;
+            case 2:
+                setUpHealthCareExpense(whichList);
+                break;
+            case 3:
+                setUpHousingExpense(whichList);
+                break;
+            case 4:
+                setUpTransportationExpense(whichList);
+                break;
+            case 5:
+                setUpPersonalExpense(whichList);
+                break;
+        }
+
+    }
+
+    private void setUpFoodExpense(int whichList) {
+        Expense ex = expenseBasicSetUp(1, whichList);
+        System.out.println("Press y to enter a list of food items to this expense, n to skip");
+        String choice = user.next();
+        if (choice.equals("y")) {
+            setUpFoodList(ex);
+        }
+        System.out.println("Expense item: " + ex.getName() + " added!");
+
+    }
+
+    private void setUpFoodList(Expense ex) {
+        boolean cont = true;
+        while (cont) {
+            System.out.println("Type the name of food and press enter: ");
+            String food = user.next();
+            ((FoodExpense) ex).addFood(food);
+            System.out.println(food + " added! Press Enter to add more food, or n to stop");
+            String choice = user.next();
+            if (choice.equals("n")) {
+                cont = false;
+            }
+        }
+    }
+
+    private void setUpHealthCareExpense(int whichList) {
+        Expense ex = expenseBasicSetUp(2, whichList);
+        System.out.println("Press i to add any amount covered by Insurance, n to skip");
+        String choice = user.next();
+        if (choice.equals("i")) {
+            System.out.println("Enter the amount covered by Insurance");
+            int amount = user.nextInt();
+            ((HealthcareExpense) ex).coveredByInsurance(amount);
+            System.out.println("You spent " + ex.getAmount() + " out of pocket");
+        }
+        System.out.println("Expense item: " + ex.getName() + " added!");
+    }
+
+    private void setUpHousingExpense(int whichList) {
+        Expense ex = expenseBasicSetUp(3, whichList);
+        System.out.println("Press y to label expense as a bill, n to skip");
+        String choice = user.next();
+        if (choice.equals("y")) {
+            int type = displayBillIndices();
+            ((HousingExpense) ex).setTypeofBill(type);
+        }
+
+        System.out.println("Expense item: " + ex.getName() + " added!");
+    }
+
+    private int displayBillIndices() {
+        System.out.println("Enter 1 to add a Water Bill");
+        System.out.println("Enter 2 to add an Electricity Bill");
+        System.out.println("Enter 3 to add a Trash/Recycling Bill");
+        System.out.println("Enter 4 to add an Internet Bill");
+        System.out.println("Enter 5 to add a Rent/Mortgage Payment");
+        return user.nextInt();
+    }
+
+    private void setUpTransportationExpense(int whichList) {
+        Expense ex = expenseBasicSetUp(4, whichList);
+        System.out.println("Press y to label transportation type, n to skip");
+        String choice = user.next();
+        if (choice.equals("y")) {
+            System.out.println("Enter 1 for Eco-friendly Travel");
+            System.out.println("Enter 2 for Public Transportation");
+            System.out.println("Enter 3 for Private Transportation");
+            int type = user.nextInt();
+            ((TransportationExpense) ex).setTypeOfTransportation(type);
+        }
+        System.out.println("Expense item: " + ex.getName() + " added!");
+    }
+
+    private void setUpPersonalExpense(int whichList) {
+        Expense ex = expenseBasicSetUp(5, whichList);
+        System.out.println("Press n to classify expense as a need");
+        System.out.println("Press w to classify expense as a want");
+        String choice = user.next();
+        if (choice.equals("n")) {
+            ((PersonalExpense) ex).setAsNeed(true);
+        } else if (choice.equals("w")) {
+            ((PersonalExpense) ex).setAsNeed(false);
+        }
+        System.out.println("Expense item: " + ex.getName() + " added!");
+    }
+
+    private Expense expenseBasicSetUp(int category, int whichList) {
+        System.out.println("Enter the name of your expense:");
+        String name = user.next();
         System.out.println("Enter the cost of your expense");
         double cost = user.nextDouble();
         System.out.println("Enter the description of your expense: ");
         String description = user.next();
-        expenseReport.addExpense(name, cost, description, category);
-        System.out.println("Expense item: " + name + " added!");
-
+        if (whichList == 1) {
+            expenseReport.addExpense(name, cost, description, category);
+            return expenseReport.getMostRecent();
+        } else {
+            expenseReport.addEasyExpense(name, cost, description, category);
+            return expenseReport.getMostRecentEasyAddExpense();
+        }
     }
+
 
     private void removeExpense() {
         viewAllExpense();
