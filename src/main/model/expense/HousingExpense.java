@@ -1,4 +1,4 @@
-package model.Expense;
+package model.expense;
 
 public class HousingExpense extends Expense {
 

@@ -1,4 +1,4 @@
-package model.Expense;
+package model.expense;
 
 public class HealthcareExpense extends Expense {
     public HealthcareExpense(String name, double amount, String description) {

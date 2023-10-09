@@ -1,15 +1,16 @@
 package model;
 
-import model.Expense.*;
+import model.expense.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 
 // Represents an Expense Report that allows you to add and remove Expenses
 // and provides functionality to return all expenses, filter by category, and by cost
 public class ExpenseReport {
-    private List<Expense> expenseList;
-    private List<Expense> easyAdd;
+    private final List<Expense> expenseList;
+    private final List<Expense> easyAdd;
     private double budget;
 
     // REQUIRES: budget > 0
@@ -20,6 +21,8 @@ public class ExpenseReport {
         easyAdd = new ArrayList<Expense>();
         this.budget = budget;
     }
+
+    // adding expenses:
 
     // REQUIRES: amount >= 0 and category is one of (1,2,3,4,5)
     // MODIFIES: this
@@ -33,6 +36,8 @@ public class ExpenseReport {
         addExpenseGeneral(expenseList, name, amount, description, category);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds the expense at index from saved expenses to expense report
     public void addEasyExpenseToReport(int index) {
         Expense ex = easyAdd.get(index);
         int categoryIndex = getCategoryIndex(ex);
@@ -53,6 +58,8 @@ public class ExpenseReport {
     public void removeExpense(int i) {
         expenseList.remove(i);
     }
+
+    // Removing expenses
 
     // MODIFIES: this
     // EFFECTS: removes all expenses with the given name
@@ -122,6 +129,46 @@ public class ExpenseReport {
         }
         return returnList;
     }
+
+    // filtering by time:
+
+    // EFFECTS: returns the expenses made in the last day, empty list if none
+    public List<Expense> filterByDay() {
+        List<Expense> returnList = new ArrayList<>();
+        for (Expense t : expenseList) {
+            if (t.getDateOfCreation().equals(LocalDate.now())) {
+                returnList.add(t);
+            }
+        }
+        return returnList;
+    }
+
+    // EFFECTS: returns the expenses made in the last month, empty list if none
+    public List<Expense> filterByMonth() {
+        List<Expense> returnList = new ArrayList<>();
+        for (Expense t : expenseList) {
+            if (t.getDateOfCreation().getMonth().equals(LocalDate.now().getMonth())) {
+                returnList.add(t);
+            }
+        }
+        return returnList;
+    }
+
+    // EFFECTS: returns the expenses made in the last 7 days, empty list if none
+    public List<Expense> filterByWeek() {
+        List<Expense> returnList = new ArrayList<>();
+        LocalDate l = LocalDate.now().minusDays(7);
+        for (Expense t : expenseList) {
+            if (t.getDateOfCreation().isAfter(l)) {
+                returnList.add(t);
+            }
+        }
+        return returnList;
+    }
+
+
+
+    // budget methods:
 
     //MODIFIES: this
     //EFFECTS: changes the budget of the expense report to newBudget
