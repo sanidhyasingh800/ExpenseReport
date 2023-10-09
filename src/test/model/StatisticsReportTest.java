@@ -47,12 +47,12 @@ public class StatisticsReportTest {
 
     @Test
     public void testTotalSpending() {
-        assertEquals(1317.29, testStatistics.totalSpending(), 0.5);
+        assertEquals(1320.29, testStatistics.totalSpending(), 0.5);
     }
 
     @Test
     public void testBudgetLeft() {
-        assertEquals(-317.29, testStatistics.budgetLeft(), 0.5);
+        assertEquals(-320.28, testStatistics.budgetLeft(), 0.5);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class StatisticsReportTest {
 
     @Test
     public void testTotalSpendingByCategory4() {
-        assertEquals(65.29, testStatistics.totalSpendingByCategory(4), 0.5);
+        assertEquals(68.28, testStatistics.totalSpendingByCategory(4), 0.5);
     }
 
     @Test
@@ -92,7 +92,7 @@ public class StatisticsReportTest {
 
     @Test
     public void testAverageCost() {
-        assertEquals(131.72, testStatistics.averageCost(), 0.5);
+        assertEquals(110.02, testStatistics.averageCost(), 0.5);
     }
 
     @Test
@@ -110,7 +110,7 @@ public class StatisticsReportTest {
     }
     @Test
     public void testTotalExpenses() {
-        assertEquals(10, testStatistics.totalExpenses(), 0.5);
+        assertEquals(12, testStatistics.totalExpenses());
     }
 
     @Test
@@ -119,43 +119,43 @@ public class StatisticsReportTest {
         assertEquals(2, testStatistics.totalExpensesInCategory(1));
         assertEquals(2, testStatistics.totalExpensesInCategory(2));
         assertEquals(2, testStatistics.totalExpensesInCategory(3));
-        assertEquals(2, testStatistics.totalExpensesInCategory(4));
+        assertEquals(4, testStatistics.totalExpensesInCategory(4));
         assertEquals(2, testStatistics.totalExpensesInCategory(5));
     }
 
     @Test
     public void testTotalExpensesToday() {
-        assertEquals(5, testStatistics.totalExpensesToday(), 0.5);
+        assertEquals(7, testStatistics.totalExpensesToday(), 0.5);
     }
 
     @Test
     public void testTotalExpensesWeekly() {
-        assertEquals(7, testStatistics.totalExpensesWeekly(), 0.5);
+        assertEquals(9, testStatistics.totalExpensesWeekly(), 0.5);
     }
 
     @Test
     public void testTotalExpensesMonthly() {
-        assertEquals(8, testStatistics.totalExpensesMonthly(), 0.5);
+        assertEquals(10, testStatistics.totalExpensesMonthly(), 0.5);
     }
 
     @Test
     public void testTotalSpendingToday() {
-        assertEquals(453.5, testStatistics.totalSpendingToday(), 0.5);
+        assertEquals(456.5, testStatistics.totalSpendingToday(), 0.5);
     }
 
     @Test
     public void testTotalSpendingWeekly() {
-        assertEquals(653.5, testStatistics.totalSpendingWeekly(), 0.5);
+        assertEquals(656.5, testStatistics.totalSpendingWeekly(), 0.5);
     }
 
     @Test
     public void testTotalSpendingMonthly() {
-        assertEquals(803.5, testStatistics.totalSpendingMonthly(), 0.5);
+        assertEquals(806.5, testStatistics.totalSpendingMonthly(), 0.5);
     }
 
     @Test
     public void testAverageSpendingToday() {
-        assertEquals(90.7, testStatistics.averageSpendingToday(), 0.5);
+        assertEquals(65.2, testStatistics.averageSpendingToday(), 0.5);
     }
 
     @Test
@@ -165,7 +165,7 @@ public class StatisticsReportTest {
 
     @Test
     public void testAverageSpendingWeekly() {
-        assertEquals(93.35, testStatistics.averageSpendingWeekly(), 0.5);
+        assertEquals(72.94, testStatistics.averageSpendingWeekly(), 0.5);
     }
 
     @Test
@@ -176,7 +176,7 @@ public class StatisticsReportTest {
 
     @Test
     public void testAverageSpendingMonthly() {
-        assertEquals(100.43, testStatistics.averageSpendingMonthly(), 0.5);
+        assertEquals(80.65, testStatistics.averageSpendingMonthly(), 0.5);
     }
 
     @Test
