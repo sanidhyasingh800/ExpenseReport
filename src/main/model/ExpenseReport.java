@@ -36,6 +36,20 @@ public class ExpenseReport {
         addExpenseGeneral(expenseList, name, amount, description, category);
     }
 
+    // ONLY FOR TESTING PURPOSES
+    // REQUIRES: amount >= 0 and category is one of (1,2,3,4,5)
+    // MODIFIES: this
+    // EFFECTS: adds a new expense with given name, amount, description and given date to List of Expenses
+    //          category = 1 adds a new Food Expense
+    //          category = 2 adds a new Healthcare Expense
+    //          category = 3 adds a new Housing Expense
+    //          category = 4 adds a new Transportation Expense
+    //          category = 5 adds a new Personal Expense
+    public void addExpenseWithTime(String name, double amount, String description, int category,
+                                   int year, int month, int day) {
+        addExpenseGeneralWithTime(expenseList, name, amount, description, category, year, month, day);
+    }
+
     // MODIFIES: this
     // EFFECTS: adds the expense at index from saved expenses to expense report
     public void addEasyExpenseToReport(int index) {
@@ -218,6 +232,32 @@ public class ExpenseReport {
                 break;
             case 5:
                 list.add(new PersonalExpense(name, amount, description));
+                break;
+        }
+    }
+
+    // ONLY FOR TESTING PURPOSES
+    //MODIFIES: this
+    //EFFECTS: adds expense with given name, amount, description, category index (see addExpense),
+    //         and date of year, month, day
+    //         to the specified list
+    private void addExpenseGeneralWithTime(List<Expense> list, String name, double amount, String description,
+                                           int category, int year, int month, int day) {
+        switch (category) {
+            case 1:
+                list.add(new FoodExpense(name, amount, description, year, month, day));
+                break;
+            case 2:
+                list.add(new HealthcareExpense(name, amount, description,year, month, day));
+                break;
+            case 3:
+                list.add(new HousingExpense(name, amount, description, year, month, day));
+                break;
+            case 4:
+                list.add(new TransportationExpense(name, amount, description, year, month, day));
+                break;
+            case 5:
+                list.add(new PersonalExpense(name, amount, description, year, month, day));
                 break;
         }
     }
