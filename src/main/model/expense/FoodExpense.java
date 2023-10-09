@@ -14,6 +14,7 @@ public class FoodExpense extends Expense {
 
     public FoodExpense(String name, double amount, String description, int year, int month, int day) {
         super(name, amount, description, year, month, day);
+        this.foodItems = new ArrayList<>();
     }
 
     //MODIFIES: this

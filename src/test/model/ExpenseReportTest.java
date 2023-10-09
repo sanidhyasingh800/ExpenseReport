@@ -287,10 +287,14 @@ public class ExpenseReportTest {
         testReport.addExpense("PersonalExpense1", 89, "D9", 5);
         testReport.addExpense("TransportationExpense1", 1.50, "D7",4 );
         testReport.addExpense("TransportationExpense1", 1.50, "D7",4 );
-        List<Expense> testList = testReport.getExpensesAboveAmount(89);
-        assertEquals(1, testList.size());
+        List<Expense> testList = testReport.getExpensesBelowAmount(89);
+        assertEquals(3, testList.size());
         Expense test = testList.get(0);
         checkForCorrectExpense(expense9, test);
+        test = testList.get(1);
+        checkForCorrectExpense(expense7, test);
+        test = testList.get(2);
+        checkForCorrectExpense(expense7, test);
 
     }
 
@@ -353,6 +357,13 @@ public class ExpenseReportTest {
         checkForCorrectExpense(expense9, test);
         test = testList.get(1);
         checkForCorrectExpense(expense10, test);
+    }
+
+    @Test
+    public void testGetSpecifcCategoryButWrongIndexProvided() {
+        addAllExpenses();
+        List<Expense> testList = testReport.getSpecificCategoryOfExpense(6);
+        assertEquals(0, testList.size());
     }
 
     @Test

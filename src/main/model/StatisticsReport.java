@@ -85,7 +85,7 @@ public class StatisticsReport {
         return expenseReport.filterByWeek().size();
     }
 
-    // EFFECTS: returns total number of expenses this month, 0 if none
+    // EFFECTS: returns total number of expenses of last 30 days, 0 if none
     public int totalExpensesMonthly() {
         return expenseReport.filterByMonth().size();
     }
@@ -99,7 +99,7 @@ public class StatisticsReport {
         return total;
     }
 
-    //EFFECTS: returns total cost of expenses this week, 0 if no expenses
+    //EFFECTS: returns total cost of expenses of last 7 days, 0 if no expenses
     public double totalSpendingWeekly() {
         double total = 0;
         for (Expense e :  expenseReport.filterByWeek()) {
@@ -108,7 +108,7 @@ public class StatisticsReport {
         return total;
     }
 
-    //EFFECTS: returns total cost of expenses this month, 0 if no expenses
+    //EFFECTS: returns total cost of expenses of last 30 days, 0 if no expenses
     public double totalSpendingMonthly() {
         double total = 0;
         for (Expense e :  expenseReport.filterByMonth()) {
@@ -262,6 +262,12 @@ public class StatisticsReport {
             }
         }
         return total;
+    }
+
+    // getters
+
+    public ExpenseReport getExpenseReport() {
+        return expenseReport;
     }
 
 
