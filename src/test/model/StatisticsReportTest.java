@@ -96,6 +96,11 @@ public class StatisticsReportTest {
     }
 
     @Test
+    public void testAverageCostIsZero() {
+        assertEquals(0, testStatisticsEmpty.averageCost());
+    }
+
+    @Test
     public void testAverageCostByCategory1() {
         assertEquals(125.0, testStatistics.averageCostByCategory(1), 0.5);
     }
@@ -187,6 +192,11 @@ public class StatisticsReportTest {
     @Test
     public void testGetAverageAmountPerFoodItem() {
         assertEquals(41.66, testStatistics.getAverageAmountPerFoodItem(), 0.5);
+    }
+
+    @Test
+    public void testGetAverageAmountPerFoodItemIsZero() {
+        assertEquals(0, testStatisticsEmpty.getAverageAmountPerFoodItem());
     }
 
     @Test
