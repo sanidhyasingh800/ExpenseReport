@@ -21,7 +21,7 @@ A Detailed View of the Functionalities:
 - Set up recurring expenses
 - Track amount spent within each category
 - Track percentage of money spent on each category over days, weeks, months
-- Add a budget cap to a specific day, week, or month
+- Add a budget cap to the overall Expense Report
 
 ## User Stories
 - As a user, I want to be able to specify different expense categories such as food, bills, etc.
@@ -31,7 +31,7 @@ A Detailed View of the Functionalities:
 - As a user, I want to be able to view a list of all my expenses for that day, week, or month.
 - As a user, I want to be able to view statistics on how much money I spend within each category.
 - As a user, I want to be able to track how my expenses change over the period of days, weeks, and months.
-- As a user, I want to be able to set a budget cap for a certain week or month and view how much money I have left to spend.
+- As a user, I want to be able to set a budget cap for my expenses and be able to change it later on.
 
 
 
