@@ -50,7 +50,6 @@ public class StatisticsReport {
     }
 
     // EFFECTS: returns the average cost of the entire expense report, 0 if no expenses
-    // todo: test
     public double averageCost() {
         if (expenseReport.getExpenses().size() == 0) {
             return 0;
@@ -148,7 +147,6 @@ public class StatisticsReport {
     // Personalized Statistics for each type of expense
 
     // Food:
-    // todo: test
     // EFFECTS: returns the average cost of a food item bought overall in all Food Expenses
     public double getAverageAmountPerFoodItem() {
         List<Expense> list = expenseReport.getSpecificCategoryOfExpense(1);
