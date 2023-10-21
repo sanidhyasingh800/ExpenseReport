@@ -1,0 +1,48 @@
+{
+  "name": "Sunny",
+  "savedexpenses": [
+    {
+      "date": "2023-10-21",
+      "cost": 1.5,
+      "name": "TransportationExpense1",
+      "description": "D7",
+      "category": "TransportationExpense",
+      "type": 0
+    },
+    {
+      "date": "2023-10-21",
+      "cost": 89,
+      "need": false,
+      "name": "PersonalExpense1",
+      "description": "D9",
+      "category": "PersonalExpense"
+    }
+  ],
+  "budget": 100,
+  "expenses": [
+    {
+      "date": "2023-10-21",
+      "cost": 100,
+      "foods": [],
+      "name": "FoodExpense1",
+      "description": "D1",
+      "category": "FoodExpense"
+    },
+    {
+      "date": "2023-10-21",
+      "cost": 738,
+      "covered": 0,
+      "name": "HealthExpense1",
+      "description": "D3",
+      "category": "HealthcareExpense"
+    },
+    {
+      "date": "2023-10-21",
+      "cost": 25,
+      "name": "HousingExpense1",
+      "description": "D5",
+      "bill": 0,
+      "category": "HousingExpense"
+    }
+  ]
+}
