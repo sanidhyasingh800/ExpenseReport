@@ -31,7 +31,7 @@ class JsonReaderTest {
             ExpenseReport expenseReport = reader.read();
             fail("IOException expected");
         } catch (IOException e) {
-            // pass
+            //  pass
         }
     }
 
