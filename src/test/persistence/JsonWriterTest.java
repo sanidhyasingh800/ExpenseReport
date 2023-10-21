@@ -7,15 +7,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class JsonWriterTest {
-    //NOTE TO CPSC 210 STUDENTS: the strategy in designing tests for the JsonWriter is to
-    //write data to a file and then use the reader to read it back in and check that we
-    //read in a copy of what was written out.
     private ExpenseReport expenseReport;
     private Expense expense1;
     private Expense expense2;
@@ -64,6 +60,9 @@ class JsonWriterTest {
     void testWriterGeneralExpenses() {
         try {
             addAllExpenses();
+            FoodExpense testFoodExpense = (FoodExpense) expenseReport.getExpenses().get(0);
+            testFoodExpense.addFood("Milk");
+            testFoodExpense.addFood("Bread");
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralExpenses.json");
             writer.open();
             writer.write(expenseReport);
@@ -75,6 +74,10 @@ class JsonWriterTest {
             List<Expense> testList = expenseReport.getExpenses();
             assertEquals(3, testList.size());
             checkForCorrectExpense(expense1, testList.get(0));
+            List<String> foods = ((FoodExpense) testList.get(0)).getFoodItems();
+            assertEquals(2, foods.size());
+            assertEquals("Milk", foods.get(0));
+            assertEquals("Bread", foods.get(1));
             checkForCorrectExpense(expense2, testList.get(1));
             checkForCorrectExpense(expense3, testList.get(2));
             testList = expenseReport.getEasyAdd();

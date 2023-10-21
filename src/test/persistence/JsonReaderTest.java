@@ -59,6 +59,10 @@ class JsonReaderTest {
             List<Expense> testList = expenseReport.getExpenses();
             assertEquals(3, testList.size());
             checkForCorrectExpense(expense1, testList.get(0));
+            List<String> foods = ((FoodExpense) testList.get(0)).getFoodItems();
+            assertEquals(2, foods.size());
+            assertEquals("Milk", foods.get(0));
+            assertEquals("Bread", foods.get(1));
             checkForCorrectExpense(expense2, testList.get(1));
             checkForCorrectExpense(expense3, testList.get(2));
             testList = expenseReport.getEasyAdd();
@@ -78,6 +82,8 @@ class JsonReaderTest {
 
     private void initializeExpenses() {
         expense1 = new FoodExpense("FoodExpense1", 100, "D1");
+        ((FoodExpense) expense1).addFood("Milk");
+        ((FoodExpense) expense1).addFood("Bread");
         expense2 = new HealthcareExpense("HealthExpense1", 738, "D3");
         expense3 = new HousingExpense("HousingExpense1", 25, "D5");
         expense4 = new TransportationExpense("TransportationExpense1", 1.50, "D7");

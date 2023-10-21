@@ -2,5 +2,16 @@
     "name": "sunny",
     "savedexpenses": [],
     "budget": 100,
-    "expenses": []
+    "expenses": [{
+        "date": "2023-10-21",
+        "cost": 100,
+        "foods": [
+            "Milk",
+            "Bread",
+            ""
+        ],
+        "name": "save ons",
+        "description": "grocery",
+        "category": "FoodExpense"
+    }]
 }

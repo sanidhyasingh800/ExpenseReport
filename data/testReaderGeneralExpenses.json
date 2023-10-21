@@ -23,7 +23,10 @@
     {
       "date": "2023-10-21",
       "cost": 100,
-      "foods": [],
+      "foods": [
+        "Milk",
+        "Bread"
+      ],
       "name": "FoodExpense1",
       "description": "D1",
       "category": "FoodExpense"
