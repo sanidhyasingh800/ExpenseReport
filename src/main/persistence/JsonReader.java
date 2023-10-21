@@ -102,10 +102,8 @@ public class JsonReader {
             case "TransportationExpense":
                 list.add(generateTransportationExpense(jsonObject));
                 break;
-            case "PersonalExpense":
-                list.add(generatePersonalExpense(jsonObject));
-                break;
             default:
+                list.add(generatePersonalExpense(jsonObject));
                 break;
         }
     }
