@@ -32,6 +32,9 @@ A Detailed View of the Functionalities:
 - As a user, I want to be able to view statistics on how much money I spend within each category.
 - As a user, I want to be able to track how my expenses change over the period of days, weeks, and months.
 - As a user, I want to be able to set a budget cap for my expenses and be able to change it later on.
+- As a user, I want to be able to have the option to save my expense report.
+- As a user, I want to be able to have the option to load in expense report from file.
+
 
 
 
