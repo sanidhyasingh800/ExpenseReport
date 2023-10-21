@@ -27,12 +27,13 @@ public class ExpenseReportTest {
     @BeforeEach
     public void setUp() {
         initializeExpenses();
-        testReport = new ExpenseReport(budget);
+        testReport = new ExpenseReport("reportName", budget);
     }
 
     @Test
     public void testConstructor(){
         assertEquals(1000, testReport.getBudget());
+        assertEquals("reportName", testReport.getName());
         assertEquals(0, testReport.getExpenses().size());
 
     }

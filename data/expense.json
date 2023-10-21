@@ -1,0 +1,41 @@
+{
+    "name": "shadfgb",
+    "savedexpenses": [{
+        "date": "2023-10-21",
+        "cost": -14261,
+        "covered": 2930,
+        "name": "es",
+        "description": "sjhrd",
+        "category": "HealthcareExpense"
+    }],
+    "budget": 23746,
+    "expenses": [
+        {
+            "date": "2023-10-21",
+            "cost": 2389,
+            "name": "disfj",
+            "description": "sdhjf",
+            "category": "TransportationExpense",
+            "type": 1
+        },
+        {
+            "date": "2023-10-21",
+            "cost": -14261,
+            "covered": 2930,
+            "name": "es",
+            "description": "sjhrd",
+            "category": "HealthcareExpense"
+        },
+        {
+            "date": "2023-10-21",
+            "cost": 100,
+            "foods": [
+                "eggs",
+                "milk"
+            ],
+            "name": "save ons",
+            "description": "grovery",
+            "category": "FoodExpense"
+        }
+    ]
+}

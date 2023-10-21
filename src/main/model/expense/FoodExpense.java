@@ -1,6 +1,9 @@
 package model.expense;
 
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,5 +31,22 @@ public class FoodExpense extends Expense {
     //EFFECTS: returns the list of food associated with this food expense
     public List<String> getFoodItems() {
         return foodItems;
+    }
+
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("category", "FoodExpense");
+        json.put("cost", amount);
+        json.put("description", description);
+        JSONArray jsonArray = new JSONArray();
+        for (String food : foodItems) {
+            jsonArray.put(food);
+        }
+        json.put("foods", foodItems);
+        json.put("date", dateOfCreation);
+        return json;
     }
 }

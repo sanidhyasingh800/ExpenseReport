@@ -1,14 +1,17 @@
 package model.expense;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.time.LocalDate;
 
 //General Model of an expense with specified name, category, amount, description
 //Each expense is assigned the date it is created on
-public abstract class Expense {
-    private String name;
-    private double amount;
-    private String description;
-    private final LocalDate dateOfCreation;
+public abstract class Expense implements Writable {
+    protected String name;
+    protected double amount;
+    protected String description;
+    protected final LocalDate dateOfCreation;
 
     //EFFECTS: Constructs a general expense with given name, amount, and description
     public Expense(String name, double amount, String description) {
@@ -53,6 +56,10 @@ public abstract class Expense {
     public LocalDate getDateOfCreation() {
         return dateOfCreation;
     }
+
+    // EFFECTS: returns the expense as a JSON object
+    @Override
+    public abstract JSONObject toJson();
 
 
 

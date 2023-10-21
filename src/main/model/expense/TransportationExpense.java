@@ -1,5 +1,7 @@
 package model.expense;
 
+import org.json.JSONObject;
+
 // Represents an Expense related to Transportation Costs, allows users to label each expense as a
 // green energy, public, or personal form of transportation
 // Other functionality extended from expense
@@ -28,4 +30,18 @@ public class TransportationExpense extends Expense {
     public int getTypeOfTransportation() {
         return typeOfTransportation;
     }
+
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("category", "TransportationExpense");
+        json.put("cost", amount);
+        json.put("description", description);
+        json.put("type", typeOfTransportation);
+        json.put("date", dateOfCreation);
+        return json;
+    }
+
 }

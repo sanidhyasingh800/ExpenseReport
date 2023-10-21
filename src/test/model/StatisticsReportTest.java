@@ -33,8 +33,8 @@ public class StatisticsReportTest {
     @BeforeEach
     public void setup() {
         initializeExpenses();
-        testExpenses = new ExpenseReport(budget);
-        testExpensesEmpty = new ExpenseReport(budget);
+        testExpenses = new ExpenseReport("nameReport", budget);
+        testExpensesEmpty = new ExpenseReport("nameReportEmpty", budget);
         addAllExpenses();
         testStatistics = new StatisticsReport(testExpenses);
         testStatisticsEmpty = new StatisticsReport(testExpensesEmpty);

@@ -3,7 +3,12 @@ package ui;
 import model.ExpenseReport;
 import model.expense.*;
 import model.StatisticsReport;
+import org.json.JSONException;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
 
@@ -12,6 +17,9 @@ import java.util.List;
 // statistics based on their reports. Users can also set a budget for their report and view customized
 // statistics for each time of expense (food, housing, health, transportation, personal)
 public class ExpenseReportApp {
+    private static final String JSON_STORE = "./data/expense.json";
+    private final JsonWriter jsonWriter;
+    private final JsonReader jsonReader;
     private ExpenseReport expenseReport;
     private StatisticsReport statisticsReport;
     private Scanner user;
@@ -19,8 +27,34 @@ public class ExpenseReportApp {
 
     // EFFECTS: Runs the Expense Report App
     public ExpenseReportApp() {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runApplication();
         quit = false;
+    }
+
+    // EFFECTS: saves the expense report to file
+    private void saveReport() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(expenseReport);
+            jsonWriter.close();
+            System.out.println("Saved " + expenseReport.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads expense report from file
+    private void loadReport() {
+        try {
+            expenseReport = jsonReader.read();
+            statisticsReport = new StatisticsReport(expenseReport);
+            System.out.println("Loaded " + expenseReport.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 
     // MODIFIES: this
@@ -46,11 +80,30 @@ public class ExpenseReportApp {
         user = new Scanner(System.in);
         user.useDelimiter("\n");
         System.out.println("Welcome to your very own Expense Assistant!");
-        System.out.println("Please select a budget for your expense report:");
-        double budget = user.nextDouble();
-        expenseReport = new ExpenseReport(budget);
-        statisticsReport = new StatisticsReport(expenseReport);
+        System.out.println("Press l to load in your saved report, n to skip");
+        String choice = user.next();
+        if (choice.equals("l")) {
+            try {
+                loadReport();
+            } catch (JSONException e) {
+                System.out.println("No saved data yet!");
+                initialSetup();
+            }
+        } else {
+            initialSetup();
+        }
 
+    }
+
+    // MODIFIES: this
+    // EFFECTS: constructs the expense report with given name and budget
+    private void initialSetup() {
+        System.out.println("Please enter a name for your new report");
+        String name = user.next();
+        System.out.println("Please select a budget for your new expense report:");
+        double budget = user.nextDouble();
+        expenseReport = new ExpenseReport(name, budget);
+        statisticsReport = new StatisticsReport(expenseReport);
     }
 
 
@@ -66,6 +119,7 @@ public class ExpenseReportApp {
         System.out.println("Press t to break down the expense report by time");
         System.out.println("Press s to view Statistics");
         System.out.println("Press b to change budget");
+        System.out.println("Press k to save report");
         System.out.println("Press q to quit");
     }
 
@@ -100,6 +154,9 @@ public class ExpenseReportApp {
                 break;
             case "b":
                 changeBudget();
+                break;
+            case "k":
+                saveReport();
                 break;
             case "q":
                 quit();

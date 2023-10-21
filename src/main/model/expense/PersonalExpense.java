@@ -1,5 +1,7 @@
 package model.expense;
 
+import org.json.JSONObject;
+
 // Represents an Expense related to Personal Costs, allows users to label each purchase as a need or want to
 // better track spending habits
 // Other functionality extended from expense
@@ -23,5 +25,17 @@ public class PersonalExpense extends Expense {
     //EFFECTS: returns true if expense is a need, false if the expense is a want
     public boolean isNeed() {
         return need;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("category", "PersonalExpense");
+        json.put("cost", amount);
+        json.put("description", description);
+        json.put("need", need);
+        json.put("date", dateOfCreation);
+        return json;
     }
 }

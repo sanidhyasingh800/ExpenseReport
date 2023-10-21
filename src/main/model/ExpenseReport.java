@@ -1,6 +1,10 @@
 package model;
 
 import model.expense.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +12,8 @@ import java.time.LocalDate;
 
 // Represents an Expense Report that allows you to add and remove Expenses
 // and provides functionality to return all expenses, filter by category, cost, and time
-public class ExpenseReport {
+public class ExpenseReport implements Writable {
+    private String name;
     private final List<Expense> expenseList;
     private final List<Expense> easyAdd;
     private double budget;
@@ -16,10 +21,11 @@ public class ExpenseReport {
     // REQUIRES: budget > 0
     // EFFECTS: constructs a new Expense Report with the given budget
     //          and no expenses added
-    public ExpenseReport(double budget) {
+    public ExpenseReport(String name, double budget) {
         expenseList = new ArrayList<>();
         easyAdd = new ArrayList<>();
         this.budget = budget;
+        this.name = name;
     }
 
     // adding expenses:
@@ -221,6 +227,10 @@ public class ExpenseReport {
         return budget;
     }
 
+    public String getName() {
+        return name;
+    }
+
 
 
 
@@ -338,5 +348,41 @@ public class ExpenseReport {
         }
         return returnList;
     }
+
+    // Data Persistence
+
+    // EFFECTS: returns expense report as a JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("budget", budget);
+        json.put("expenses", expensesToJson());
+        json.put("savedexpenses", savedExpensesToJson());
+        return json;
+    }
+
+    // EFFECTS: returns expenses in report as a JSON array
+    private JSONArray expensesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Expense ex : expenseList) {
+            jsonArray.put(ex.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    // EFFECTS: returns recurring expenses in report as a JSON array
+    private JSONArray savedExpensesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Expense ex : easyAdd) {
+            jsonArray.put(ex.toJson());
+        }
+
+        return jsonArray;
+    }
+
 
 }

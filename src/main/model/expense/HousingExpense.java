@@ -1,5 +1,7 @@
 package model.expense;
 
+import org.json.JSONObject;
+
 // Represents an Expense related to Living Costs, allows users to identify each living expense with a type of bill
 // User can choose from water, electricity, Trash, Internet, rent, and mortgage
 // Other functionality extended from expense
@@ -29,5 +31,17 @@ public class HousingExpense extends Expense {
     //          (see setTypeofBill for representation information)
     public int getTypeofBill() {
         return typeofBill;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("category", "HousingExpense");
+        json.put("cost", amount);
+        json.put("description", description);
+        json.put("bill", typeofBill);
+        json.put("date", dateOfCreation);
+        return json;
     }
 }
