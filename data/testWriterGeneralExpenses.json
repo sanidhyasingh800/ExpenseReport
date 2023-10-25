@@ -2,7 +2,7 @@
     "name": "Sunny",
     "savedexpenses": [
         {
-            "date": "2023-10-21",
+            "date": "2023-10-25",
             "cost": 1.5,
             "name": "TransportationExpense1",
             "description": "D7",
@@ -10,7 +10,7 @@
             "type": 0
         },
         {
-            "date": "2023-10-21",
+            "date": "2023-10-25",
             "cost": 89,
             "need": false,
             "name": "PersonalExpense1",
@@ -21,7 +21,7 @@
     "budget": 100,
     "expenses": [
         {
-            "date": "2023-10-21",
+            "date": "2023-10-25",
             "cost": 100,
             "foods": [
                 "Milk",
@@ -32,7 +32,7 @@
             "category": "FoodExpense"
         },
         {
-            "date": "2023-10-21",
+            "date": "2023-10-25",
             "cost": 738,
             "covered": 0,
             "name": "HealthExpense1",
@@ -40,7 +40,7 @@
             "category": "HealthcareExpense"
         },
         {
-            "date": "2023-10-21",
+            "date": "2023-10-25",
             "cost": 25,
             "name": "HousingExpense1",
             "description": "D5",

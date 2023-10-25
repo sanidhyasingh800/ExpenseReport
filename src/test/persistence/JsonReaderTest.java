@@ -10,6 +10,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// Code heavily inspired by JsonSerialization Demo
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 class JsonReaderTest {
 
     private Expense expense1;

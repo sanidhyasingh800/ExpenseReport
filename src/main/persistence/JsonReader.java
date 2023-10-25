@@ -14,6 +14,8 @@ import model.expense.*;
 import org.json.*;
 
 // Represents a reader that reads Expense Report from JSON data stored in file
+// Code heavily inspired by JsonSerialization Demo
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 public class JsonReader {
     private String source;
 
