@@ -65,7 +65,7 @@ public class ExpensesPanel extends JPanel implements ActionListener {
     }
 
     public void displayExpenses() {
-        if (expenseReport.getExpenses().size() > refreshCheck) {
+        if (expenseReport.getExpenses().size() != refreshCheck) {
             model.setRowCount(0);
             refreshCheck = expenseReport.getExpenses().size();
             for (Expense e: expenseReport.getExpenses()) {
@@ -107,6 +107,7 @@ public class ExpensesPanel extends JPanel implements ActionListener {
     private void deleteRow() {
         int row = table.getSelectedRow();
         if (row != -1) {
+            refreshCheck--;
             model.removeRow(row);
             expenseReport.removeExpense(row);
         }

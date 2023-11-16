@@ -21,6 +21,7 @@ public class ExpenseAdderPanel extends JPanel implements ActionListener {
     public ExpenseAdderPanel(ExpenseReport ex) {
         this.expenseReport = ex;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setPreferredSize(new Dimension(300, 150));
         setUpLabelsAndInputs();
         setUpButtons();
     }

@@ -2,16 +2,30 @@
     "name": "sunny",
     "savedexpenses": [],
     "budget": 100,
-    "expenses": [{
-        "date": "2023-10-21",
-        "cost": 100,
-        "foods": [
-            "Milk",
-            "Bread",
-            ""
-        ],
-        "name": "save ons",
-        "description": "grocery",
-        "category": "FoodExpense"
-    }]
+    "expenses": [
+        {
+            "date": "2023-11-16",
+            "cost": 100,
+            "foods": [],
+            "name": "save ons ",
+            "description": "cigs",
+            "category": "FoodExpense"
+        },
+        {
+            "date": "2023-11-16",
+            "cost": 500,
+            "name": "rent ",
+            "description": "rent depo",
+            "bill": 0,
+            "category": "HousingExpense"
+        },
+        {
+            "date": "2023-11-16",
+            "cost": 1000,
+            "name": "rent",
+            "description": "rent",
+            "bill": 0,
+            "category": "HousingExpense"
+        }
+    ]
 }
