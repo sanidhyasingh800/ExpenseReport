@@ -26,6 +26,94 @@
             "description": "rent",
             "bill": 0,
             "category": "HousingExpense"
+        },
+        {
+            "date": "2023-11-16",
+            "cost": 300,
+            "name": "buspass",
+            "description": "upass",
+            "category": "TransportationExpense",
+            "type": 0
+        },
+        {
+            "date": "2023-11-16",
+            "cost": 20,
+            "foods": [],
+            "name": "uber",
+            "description": "starbucks",
+            "category": "FoodExpense"
+        },
+        {
+            "date": "2023-11-16",
+            "cost": 20,
+            "foods": [],
+            "name": "uber",
+            "description": "starbucks",
+            "category": "FoodExpense"
+        },
+        {
+            "date": "2023-11-16",
+            "cost": 20,
+            "foods": [],
+            "name": "uber",
+            "description": "starbucks",
+            "category": "FoodExpense"
+        },
+        {
+            "date": "2023-11-16",
+            "cost": 20,
+            "foods": [],
+            "name": "uber",
+            "description": "starbucks",
+            "category": "FoodExpense"
+        },
+        {
+            "date": "2023-11-16",
+            "cost": 20,
+            "foods": [],
+            "name": "uber",
+            "description": "starbucks",
+            "category": "FoodExpense"
+        },
+        {
+            "date": "2023-11-16",
+            "cost": 89,
+            "need": false,
+            "name": "Games",
+            "description": "call of duty",
+            "category": "PersonalExpense"
+        },
+        {
+            "date": "2023-11-16",
+            "cost": 400,
+            "covered": 0,
+            "name": "gym",
+            "description": "membership cost",
+            "category": "HealthcareExpense"
+        },
+        {
+            "date": "2023-11-21",
+            "cost": 100,
+            "foods": [],
+            "name": "save ons",
+            "description": "weekly groceries",
+            "category": "FoodExpense"
+        },
+        {
+            "date": "2023-11-21",
+            "cost": 40,
+            "name": "uber",
+            "description": "trip to downtown",
+            "category": "TransportationExpense",
+            "type": 0
+        },
+        {
+            "date": "2023-11-22",
+            "cost": 100,
+            "name": "bills",
+            "description": "water and heating ",
+            "bill": 0,
+            "category": "HousingExpense"
         }
     ]
 }

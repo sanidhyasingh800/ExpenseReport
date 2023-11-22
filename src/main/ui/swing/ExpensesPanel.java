@@ -20,10 +20,12 @@ public class ExpensesPanel extends JPanel implements ActionListener {
     // Buttons
     private JButton refresh = new JButton("Refresh");
     private JButton delete = new JButton("Delete");
+    private JComboBox<String> filter;
 
     // Accessing the expenseReport
     private ExpenseReport expenseReport;
     private static int refreshCheck;
+    private static boolean currentlyDisplayingFilter;
 
     public ExpensesPanel(ExpenseReport expenseReport) {
         super();
@@ -38,6 +40,7 @@ public class ExpensesPanel extends JPanel implements ActionListener {
     private void setUpExpenseReport(ExpenseReport expenseReport) {
         this.expenseReport = expenseReport;
         refreshCheck = 0;
+        currentlyDisplayingFilter = false;
     }
 
     private void setUpButtons() {
@@ -48,6 +51,15 @@ public class ExpensesPanel extends JPanel implements ActionListener {
         delete.setActionCommand("delete");
         delete.addActionListener(this);
         buttons.add(delete);
+        String[] choices = {"Overall Report",
+                            "Food Expenses",
+                            "Healthcare Expenses",
+                            "Housing Expenses",
+                            "Transportation Expenses",
+                            "Personal Expenses", "Expenses Made Today", "Expenses Made This Week",
+                            "Expenses Made This Month"};
+        filter = new JComboBox<>(choices);
+        buttons.add(filter);
         add(buttons, BorderLayout.SOUTH);
     }
 
@@ -62,11 +74,13 @@ public class ExpensesPanel extends JPanel implements ActionListener {
         table.setPreferredScrollableViewportSize(new Dimension(600, 600));
         JScrollPane table2 = new JScrollPane(table);
         add(table2, BorderLayout.NORTH);
+        displayExpenses();
     }
 
     public void displayExpenses() {
-        if (expenseReport.getExpenses().size() != refreshCheck) {
+        if (expenseReport.getExpenses().size() != refreshCheck || currentlyDisplayingFilter) {
             model.setRowCount(0);
+            currentlyDisplayingFilter = false;
             refreshCheck = expenseReport.getExpenses().size();
             for (Expense e: expenseReport.getExpenses()) {
                 String[] data = returnDisplayData(e);
@@ -98,9 +112,53 @@ public class ExpensesPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("refresh")) {
-            displayExpenses();
+            displaySelectedTable();
         } else if (e.getActionCommand().equals("delete")) {
             deleteRow();
+        }
+    }
+
+    private void displaySelectedTable() {
+        String choice = ((String) filter.getSelectedItem());
+        switch (choice) {
+            case "Overall Report":
+                displayExpenses();
+                break;
+            case "Food Expenses":
+                displayList(expenseReport.getSpecificCategoryOfExpense(1));
+                break;
+            case "Healthcare Expenses":
+                displayList(expenseReport.getSpecificCategoryOfExpense(2));
+                break;
+            case "Housing Expenses":
+                displayList(expenseReport.getSpecificCategoryOfExpense(3));
+                break;
+            case "Transportation Expenses":
+                displayList(expenseReport.getSpecificCategoryOfExpense(4));
+                break;
+            case "Personal Expenses":
+                displayList(expenseReport.getSpecificCategoryOfExpense(5));
+                break;
+            case "Expenses Made Today":
+                displayList(expenseReport.filterByDay());
+                break;
+            case "Expenses Made This Month":
+                displayList(expenseReport.filterByMonth());
+                break;
+            case "Expenses Made This Week":
+                displayList(expenseReport.filterByWeek());
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void displayList(List<Expense> specificCategoryOfExpense) {
+        model.setRowCount(0);
+        currentlyDisplayingFilter = true;
+        for (Expense e: specificCategoryOfExpense) {
+            String[] data = returnDisplayData(e);
+            model.addRow(data);
         }
     }
 
