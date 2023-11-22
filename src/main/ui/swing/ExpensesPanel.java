@@ -118,6 +118,7 @@ public class ExpensesPanel extends JPanel implements ActionListener {
         }
     }
 
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void displaySelectedTable() {
         String choice = ((String) filter.getSelectedItem());
         switch (choice) {
