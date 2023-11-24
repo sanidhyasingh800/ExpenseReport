@@ -36,6 +36,16 @@ A Detailed View of the Functionalities:
 - As a user, I want to be able to have the option to load in expense report from file.
 
 
+# Instructions for Grader
+
+- You can add expenses to the expense report by selecting category, name, cost, and description and pressing "Enter Expense". Click "Refresh" on the table to see the updated report
+- You can remove expenses by selecting a row in the overall report view of the table and pressing delete
+- You can view different expenses through filters available in the dropdown menu below the table
+- You can view different graphs of the data by choosing the graph view from the dropdown graphs menu
+- You can save the state the report by clicking save or save and quit 
+- You can reload the report by clicking "Load Saved Report" at launch 
+
+
 
 
 

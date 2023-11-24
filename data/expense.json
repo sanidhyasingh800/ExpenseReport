@@ -114,6 +114,78 @@
             "description": "water and heating ",
             "bill": 0,
             "category": "HousingExpense"
+        },
+        {
+            "date": "2023-11-01",
+            "cost": 1000,
+            "name": "rent",
+            "description": "rent for new month",
+            "bill": 0,
+            "category": "HousingExpense"
+        },
+        {
+            "date": "2023-11-22",
+            "cost": 200,
+            "covered": 0,
+            "name": "check up ",
+            "description": "annual checkuo",
+            "category": "HealthcareExpense"
+        },
+        {
+            "date": "2023-11-22",
+            "cost": 300,
+            "need": false,
+            "name": "clothes",
+            "description": "bought winter jackets",
+            "category": "PersonalExpense"
+        },
+        {
+            "date": "2023-11-22",
+            "cost": 50,
+            "name": "christmas lights",
+            "description": "decoration",
+            "bill": 0,
+            "category": "HousingExpense"
+        },
+        {
+            "date": "2023-11-22",
+            "cost": 25,
+            "foods": [],
+            "name": "feast",
+            "description": "bought food at feast ",
+            "category": "FoodExpense"
+        },
+        {
+            "date": "2023-11-22",
+            "cost": 25,
+            "foods": [],
+            "name": "feast",
+            "description": "bought food at feast ",
+            "category": "FoodExpense"
+        },
+        {
+            "date": "2023-11-22",
+            "cost": 25,
+            "foods": [],
+            "name": "feast",
+            "description": "bought food at feast ",
+            "category": "FoodExpense"
+        },
+        {
+            "date": "2023-11-22",
+            "cost": 25,
+            "foods": [],
+            "name": "feast",
+            "description": "bought food at feast ",
+            "category": "FoodExpense"
+        },
+        {
+            "date": "2023-11-22",
+            "cost": 25,
+            "foods": [],
+            "name": "feast",
+            "description": "bought food at feast ",
+            "category": "FoodExpense"
         }
     ]
 }

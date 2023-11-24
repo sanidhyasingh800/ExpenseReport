@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Provides a way for users to enter expenses to their expense Report
 public class ExpenseAdderPanel extends JPanel implements ActionListener {
     //Accessing the Expense Report
     private ExpenseReport expenseReport;
@@ -18,6 +19,7 @@ public class ExpenseAdderPanel extends JPanel implements ActionListener {
     private JTextField descriptionInput;
     private JButton enter;
 
+    // EFFECTS: constructs a new expense adder panel with expenses being added to given expense report
     public ExpenseAdderPanel(ExpenseReport ex) {
         this.expenseReport = ex;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -26,6 +28,8 @@ public class ExpenseAdderPanel extends JPanel implements ActionListener {
         setUpButtons();
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets up all related buttons
     private void setUpButtons() {
         enter = new JButton("Enter Expense");
         enter.setActionCommand("EnterExpense");
@@ -33,6 +37,8 @@ public class ExpenseAdderPanel extends JPanel implements ActionListener {
         add(enter);
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets up all labels and text fields
     private void setUpLabelsAndInputs() {
         String[] choices = {"Food", "Healthcare", "Housing",
                 "Transportation", "Personal"};
@@ -46,6 +52,7 @@ public class ExpenseAdderPanel extends JPanel implements ActionListener {
         add(newExpenseParameter("Description", descriptionInput = new JTextField(20)));
     }
 
+    // EFFECTS: returns each label and text field as a JPanel
     private JPanel newExpenseParameter(String label, JTextField textField) {
         JPanel rowPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
         rowPanel.add(new JLabel(label));
@@ -53,6 +60,8 @@ public class ExpenseAdderPanel extends JPanel implements ActionListener {
         return rowPanel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: constructs and adds the category of expense chosen by user
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("EnterExpense")) {
@@ -79,6 +88,8 @@ public class ExpenseAdderPanel extends JPanel implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds the user-provided expense to the expense report
     private void configureExpense(int i) {
         expenseReport.addExpense(nameInput.getText(),
                 Double.parseDouble(costInput.getText()),

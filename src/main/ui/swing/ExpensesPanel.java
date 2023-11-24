@@ -8,9 +8,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
+
+// Table Panel for displaying all expenses as well as filtered views based on category and time
 public class ExpensesPanel extends JPanel implements ActionListener {
 
     // table related fields
@@ -27,6 +28,8 @@ public class ExpensesPanel extends JPanel implements ActionListener {
     private static int refreshCheck;
     private static boolean currentlyDisplayingFilter;
 
+    // EFFECTS: constructs a new Expenses Panel with the given expenseReport
+    //          and sets up all corresponding buttons
     public ExpensesPanel(ExpenseReport expenseReport) {
         super();
         setUpExpenseReport(expenseReport);
@@ -37,12 +40,16 @@ public class ExpensesPanel extends JPanel implements ActionListener {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: connects the expense report to the expenses panel
     private void setUpExpenseReport(ExpenseReport expenseReport) {
         this.expenseReport = expenseReport;
         refreshCheck = 0;
         currentlyDisplayingFilter = false;
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets up all buttons in the expenses panel
     private void setUpButtons() {
         JPanel buttons = new JPanel(new FlowLayout());
         refresh.setActionCommand("refresh");
@@ -63,6 +70,9 @@ public class ExpensesPanel extends JPanel implements ActionListener {
         add(buttons, BorderLayout.SOUTH);
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets up the table with given categories
+    //          and initializes it to show overall expenses
     private void setUpTable() {
         String[] columns = new String[4];
         columns[0] = "Category";
@@ -77,10 +87,13 @@ public class ExpensesPanel extends JPanel implements ActionListener {
         displayExpenses();
     }
 
+    // MODIFIES: this
+    // EFFECTS: displays all current expenses in report
     public void displayExpenses() {
         if (expenseReport.getExpenses().size() != refreshCheck || currentlyDisplayingFilter) {
             model.setRowCount(0);
             currentlyDisplayingFilter = false;
+            delete.setEnabled(true);
             refreshCheck = expenseReport.getExpenses().size();
             for (Expense e: expenseReport.getExpenses()) {
                 String[] data = returnDisplayData(e);
@@ -90,6 +103,7 @@ public class ExpensesPanel extends JPanel implements ActionListener {
 
     }
 
+    // EFFECTS: returns the correct display representation of each type of expense
     private String[] returnDisplayData(Expense e) {
         String[] data;
         if (e instanceof FoodExpense) {
@@ -109,6 +123,7 @@ public class ExpensesPanel extends JPanel implements ActionListener {
     }
 
 
+    // EFFECTS: performs the action chosen by button pressed by user
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("refresh")) {
@@ -118,6 +133,7 @@ public class ExpensesPanel extends JPanel implements ActionListener {
         }
     }
 
+    // EFFECTS: displays the correct filter on the table as per user input
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void displaySelectedTable() {
         String choice = ((String) filter.getSelectedItem());
@@ -154,15 +170,20 @@ public class ExpensesPanel extends JPanel implements ActionListener {
         }
     }
 
-    private void displayList(List<Expense> specificCategoryOfExpense) {
+    // MODIFIES: this
+    // EFFECTS: displays the list in the table
+    private void displayList(List<Expense> list) {
         model.setRowCount(0);
         currentlyDisplayingFilter = true;
-        for (Expense e: specificCategoryOfExpense) {
+        delete.setEnabled(false);
+        for (Expense e: list) {
             String[] data = returnDisplayData(e);
             model.addRow(data);
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: removes the expense chosen by the user
     private void deleteRow() {
         int row = table.getSelectedRow();
         if (row != -1) {

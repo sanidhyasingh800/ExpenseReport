@@ -2,6 +2,7 @@ package ui.swing;
 
 import model.ExpenseReport;
 import model.StatisticsReport;
+import org.json.JSONException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -12,6 +13,10 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+// Represents the Expense Report App which includes the expense adder,
+// displays the table of all expenses, and graphical views of report
+// Influenced heavily by:
+// https://stackoverflow.com/questions/6578205/swing-jlabel-text-change-on-the-running-application
 public class ExpenseReportUI extends JFrame implements ActionListener {
     // setup information
     public static final int WIDTH = 1300;
@@ -39,6 +44,7 @@ public class ExpenseReportUI extends JFrame implements ActionListener {
     private final JsonWriter jsonWriter;
     private final JsonReader jsonReader;
 
+    // EFFECTS: launches the expense report app
     public ExpenseReportUI() {
         super("Expense Report");
 
@@ -52,11 +58,13 @@ public class ExpenseReportUI extends JFrame implements ActionListener {
         }
         ex = new ExpensesPanel(expenseReport);
         adder = new ExpenseAdderPanel(expenseReport);
-        graph = new GraphPanel(expenseReport, statisticsReport);
+        graph = new GraphPanel(statisticsReport);
         setUpButtons();
         initializeGraphics();
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets up all buttons in app
     private void setUpButtons() {
         quit = new JButton("         Quit       ");
         save = new JButton("        Save       ");
@@ -79,16 +87,22 @@ public class ExpenseReportUI extends JFrame implements ActionListener {
         persistanceOptions.add(saveAndQuit);
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads a save file with saved expense report,
+    //          throws an exception if file not found or is empty
     private void loadFile() {
         try {
             expenseReport = jsonReader.read();
             statisticsReport = new StatisticsReport(expenseReport);
-            System.out.println("Loaded " + expenseReport.getName() + " from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
+        } catch (JSONException e) {
+            newExpenseReport();
         }
     }
 
+    // EFFECTS: prompts the user to choose between loading in a prior report or starting a new one
+    //          returns the user's choice
     private static int newFileOrLoad(String[] options) {
         int choice = JOptionPane.showOptionDialog(null,
                 "Do you want to load a save file or start a new session?",
@@ -100,11 +114,15 @@ public class ExpenseReportUI extends JFrame implements ActionListener {
         return choice;
     }
 
+    // MODIFIES: this
+    // EFFECTS: constructs a new expense report from scratch
     private void newExpenseReport() {
         this.expenseReport = setUpExpenseReport();
         this.statisticsReport = new StatisticsReport(expenseReport);
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes the expense report with the given name and budget
     private ExpenseReport setUpExpenseReport() {
         name = JOptionPane.showInputDialog("Enter your name:");
         String budgetStr = JOptionPane.showInputDialog("Enter your budget:");
@@ -130,6 +148,7 @@ public class ExpenseReportUI extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    // EFFECTS: performs the given action provided by the user
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("quit")) {
@@ -143,6 +162,8 @@ public class ExpenseReportUI extends JFrame implements ActionListener {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: saves the expense report to file
     private void save() {
         try {
             jsonWriter.open();
@@ -154,6 +175,7 @@ public class ExpenseReportUI extends JFrame implements ActionListener {
         }
     }
 
+    // EFFECTS: closes the expense report app
     private void quit() {
         dispose();
         System.exit(0);

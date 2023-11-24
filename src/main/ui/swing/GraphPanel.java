@@ -1,8 +1,7 @@
 package ui.swing;
 
-import model.ExpenseReport;
+
 import model.StatisticsReport;
-import model.expense.Expense;
 import org.knowm.xchart.*;
 import org.knowm.xchart.style.Styler;
 
@@ -13,15 +12,18 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.HashMap;
 
+// Displays graphical information about expense report and provides users the choice to view
+// different statistics about their expenses.
+// Design uses the XChart Library which provides a way to create graphs in Java Swing
+// https://knowm.org/open-source/xchart/
 public class GraphPanel extends JPanel implements ActionListener {
-    private ExpenseReport expenseReport;
     private StatisticsReport statisticsReport;
-    private JComboBox<String> graphchoice;
+    private JComboBox<String> graphChoice;
     private XChartPanel<CategoryChart> display;
     private XChartPanel<PieChart> pieChartDisplay;
 
-    public GraphPanel(ExpenseReport ex, StatisticsReport st) {
-        this.expenseReport = ex;
+    // EFFECTS: constructs a graph panel with provided statistics report
+    public GraphPanel(StatisticsReport st) {
         statisticsReport = st;
         setLayout(new BorderLayout());
         setupButtons();
@@ -29,14 +31,18 @@ public class GraphPanel extends JPanel implements ActionListener {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes and sets up all related buttons
     private void setupButtons() {
         String[] choices = {"Overall Spending", "Time Graph", "Category Pie Chart"};
-        graphchoice = new JComboBox<>(choices);
-        graphchoice.setActionCommand("Choose graph");
-        graphchoice.addActionListener(this);
-        add(graphchoice, BorderLayout.SOUTH);
+        graphChoice = new JComboBox<>(choices);
+        graphChoice.setActionCommand("Choose graph");
+        graphChoice.addActionListener(this);
+        add(graphChoice, BorderLayout.SOUTH);
     }
 
+    // MODIFIES: this
+    // EFFECTS: shows a bar graph of the overall spending per category
     private void showOverallReport() {
         String[] categories = new String[] {"Food", "Healthcare", "Housing",
                 "Transportation", "Personal"};
@@ -61,6 +67,8 @@ public class GraphPanel extends JPanel implements ActionListener {
         repaint();
     }
 
+    // MODIFIES: this
+    // EFFECTS: shows a bar graph of the average expense cost over month, week, and day
     private void showTimeReport() {
         String[] categories = new String[] {"This Month", "This Week", "Today"};
         Double[] values = {statisticsReport.averageSpendingMonthly(),
@@ -82,6 +90,8 @@ public class GraphPanel extends JPanel implements ActionListener {
         repaint();
     }
 
+    // MODIFIES: this
+    // EFFECTS: shows a pie chart of the percentage of expenses in each category
     private void showPieChart() {
         HashMap<String, Double> data = new HashMap<>();
         data.put("Food", statisticsReport.totalSpendingByCategory(1));
@@ -106,10 +116,11 @@ public class GraphPanel extends JPanel implements ActionListener {
         repaint();
     }
 
+    // EFFECTS: shows the graph selected by the user
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Choose graph")) {
-            String choice = (String) graphchoice.getSelectedItem();
+            String choice = (String) graphChoice.getSelectedItem();
             switch (choice) {
                 case "Overall Spending":
                     showOverallReport();
