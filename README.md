@@ -36,14 +36,48 @@ A Detailed View of the Functionalities:
 - As a user, I want to be able to have the option to load in expense report from file.
 
 
-# Instructions for Grader
+## Instructions for Grader
 
 - You can add expenses to the expense report by selecting category, name, cost, and description and pressing "Enter Expense". Click "Refresh" on the table to see the updated report
 - You can remove expenses by selecting a row in the overall report view of the table and pressing delete
 - You can view different expenses through filters available in the dropdown menu below the table
 - You can view different graphs of the data by choosing the graph view from the dropdown graphs menu
 - You can save the state the report by clicking save or save and quit 
-- You can reload the report by clicking "Load Saved Report" at launch 
+- You can reload the report by clicking "Load Saved Report" at launch
+
+
+## Phase 4: Task 2
+- Tue Nov 28 17:48:37 PST 2023
+  - Expense Report Created with name: sunny and budget: 100.0
+- Tue Nov 28 17:48:50 PST 2023
+  - Food Expense created with name: save ons , cost: 100.0, and description: weekly grocery
+- Tue Nov 28 17:49:12 PST 2023
+  - Housing Expense created with name: decoration , cost: 400.0, and description: christmas lights and tree
+- Tue Nov 28 17:49:17 PST 2023
+  - Deleted Expense with name: buspass and cost: 100.0
+- Tue Nov 28 17:49:21 PST 2023
+  - Deleted Expense with name: clothes and cost: 300.0
+- Tue Nov 28 17:49:23 PST 2023
+  - Expense Report: sunny saved to file
+  
+## Phase 4: Task 3:
+Looking back at Phase 1, I decided to create an abstract Expense 
+class and then create 5 types of Expenses with specialized behavior.
+However, this design choice lead to a lot of code repetition and complication.
+An example of this is the addExpense() method in the Expense report, where
+I had to use a switch case to be able to add 5 different types of expenses 
+as per the user's choice. Furthermore, this also increased coupling as model and ui classes had
+to handle correctly adding the right expense and any discrepancy between the two would cause the wrong expense type 
+to be added without any warning.
+
+To refactor this, I would instead use a single expense class and instead
+store different categories of expenses in a Hashmap in the expense report class. 
+Not only would this ensure that adding, deleting, and filtering an expense is easier to implement, 
+it could also allow users to add different categories as per their choice. Using a string representation of
+category as keys, I could easily add to existing or new categories of expenses. With this change, only expense report 
+needs to worry about different categories and the only responsibility of the UI class is to pass through the user input for
+category, reducing coupling greatly. 
+
 
 
 

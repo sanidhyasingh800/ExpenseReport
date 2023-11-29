@@ -1,5 +1,7 @@
 package model;
 
+import model.eventlog.Event;
+import model.eventlog.EventLog;
 import model.expense.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,6 +21,7 @@ public class ExpenseReport implements Writable {
     private double budget;
 
     // REQUIRES: budget > 0
+    // MODIFIES: this, EventLog
     // EFFECTS: constructs a new Expense Report with the given budget
     //          and no expenses added
     public ExpenseReport(String name, double budget) {
@@ -26,13 +29,15 @@ public class ExpenseReport implements Writable {
         easyAdd = new ArrayList<>();
         this.budget = budget;
         this.name = name;
+        EventLog.getInstance().logEvent(new Event("Expense Report Created with name: "
+                                        + name + " and budget: " + budget));
     }
 
     // adding expenses:
 
     // REQUIRES: amount >= 0 and category is one of (1,2,3,4,5)
-    // MODIFIES: this
-    // EFFECTS: adds a new expense with given name, amount, and description to List of Expenses
+    // MODIFIES: this, EventLog
+    // EFFECTS: adds a new expense with given name, amount, and description to List of Expenses and logs it
     //          category = 1 adds a new Food Expense
     //          category = 2 adds a new Healthcare Expense
     //          category = 3 adds a new Housing Expense
@@ -40,6 +45,38 @@ public class ExpenseReport implements Writable {
     //          category = 5 adds a new Personal Expense
     public void addExpense(String name, double amount, String description, int category) {
         addExpenseGeneral(expenseList, name, amount, description, category);
+        logExpenseAdded(name, amount, description, category);
+    }
+
+    // MODIFIES: EventLog
+    // EFFECTS: logs the expense added with the specific category
+    private void logExpenseAdded(String name, double amount, String description, int category) {
+        switch (category) {
+            case 1:
+                logSpecificCategory(name, amount, description, "Food Expense");
+                break;
+            case 2:
+                logSpecificCategory(name, amount, description, "Healthcare Expense");
+                break;
+            case 3:
+                logSpecificCategory(name, amount, description, "Housing Expense");
+                break;
+            case 4:
+                logSpecificCategory(name, amount, description, "Transportation Expense");
+                break;
+            case 5:
+                logSpecificCategory(name, amount, description, "Personal Expense");
+                break;
+            default:
+                break;
+        }
+    }
+
+    // MODIFIES: EventLog
+    // EFFECTS: logs the expense with the given name, cost, description, and category string
+    private void logSpecificCategory(String name, double amount, String description, String category) {
+        EventLog.getInstance().logEvent(new Event(category +  " created with name: "
+                + name + ", cost: " + amount + ", and description: " + description));
     }
 
     // ONLY FOR TESTING PURPOSES
@@ -74,7 +111,10 @@ public class ExpenseReport implements Writable {
     //MODIFIES: this
     //EFFECTS: removes expense at index i from List of Expenses
     public void removeExpense(int i) {
+        Expense removed = expenseList.get(i);
         expenseList.remove(i);
+        EventLog.getInstance().logEvent(new Event("Deleted Expense with name: "
+                + removed.getName() + " and cost: " + removed.getAmount()));
     }
 
     // Removing expenses
@@ -290,7 +330,7 @@ public class ExpenseReport implements Writable {
     }
 
     //EFFECTS: returns all Food Expenses
-    //         in the order they were added
+    //         in the order they were added and logs it
     private List<Expense> getFoodExpenses() {
         List<Expense> returnList = new ArrayList<>();
         for (Expense ex : expenseList) {
@@ -302,7 +342,7 @@ public class ExpenseReport implements Writable {
     }
 
     //EFFECTS: returns all Healthcare Expenses
-    //         in the order they were added
+    //         in the order they were added and logs it
     private List<Expense> getHealthExpenses() {
         List<Expense> returnList = new ArrayList<>();
         for (Expense ex : expenseList) {
@@ -314,7 +354,7 @@ public class ExpenseReport implements Writable {
     }
 
     //EFFECTS: returns all Housing Expenses
-    //         in the order they were added
+    //         in the order they were added and logs it
     private List<Expense> getHousingExpenses() {
         List<Expense> returnList = new ArrayList<>();
         for (Expense ex : expenseList) {
@@ -326,7 +366,7 @@ public class ExpenseReport implements Writable {
     }
 
     //EFFECTS: returns all Transportation Expenses
-    //         in the order they were added
+    //         in the order they were added and logs it
     private List<Expense> getTransportationExpenses() {
         List<Expense> returnList = new ArrayList<>();
         for (Expense ex : expenseList) {
@@ -338,7 +378,7 @@ public class ExpenseReport implements Writable {
     }
 
     //EFFECTS: returns all PersonalExpenses Expenses
-    //         in the order they were added
+    //         in the order they were added and logs it
     private List<Expense> getPersonalExpenses() {
         List<Expense> returnList = new ArrayList<>();
         for (Expense ex : expenseList) {
@@ -351,9 +391,12 @@ public class ExpenseReport implements Writable {
 
     // Data Persistence
 
-    // EFFECTS: returns expense report as a JSON object
+    // MODIFIES: EventLog
+    // EFFECTS: returns expense report as a JSON object and logs it
     @Override
     public JSONObject toJson() {
+        EventLog.getInstance().logEvent(new Event("Expense Report: "
+                + name + " saved to file"));
         JSONObject json = new JSONObject();
         json.put("name", name);
         json.put("budget", budget);

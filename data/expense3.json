@@ -1,0 +1,13 @@
+{
+    "name": "sunny",
+    "savedexpenses": [],
+    "budget": 100,
+    "expenses": [{
+        "date": "2023-11-28",
+        "cost": 100,
+        "foods": [],
+        "name": "food",
+        "description": "food",
+        "category": "FoodExpense"
+    }]
+}

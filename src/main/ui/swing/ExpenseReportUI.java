@@ -2,6 +2,8 @@ package ui.swing;
 
 import model.ExpenseReport;
 import model.StatisticsReport;
+import model.eventlog.EventLog;
+import model.eventlog.Event;
 import org.json.JSONException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -43,6 +45,9 @@ public class ExpenseReportUI extends JFrame implements ActionListener {
     private static final String JSON_STORE = "./data/expense.json";
     private final JsonWriter jsonWriter;
     private final JsonReader jsonReader;
+
+    //Event Logging
+    private EventLog eventLog = EventLog.getInstance();
 
     // EFFECTS: launches the expense report app
     public ExpenseReportUI() {
@@ -95,7 +100,7 @@ public class ExpenseReportUI extends JFrame implements ActionListener {
             expenseReport = jsonReader.read();
             statisticsReport = new StatisticsReport(expenseReport);
         } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_STORE);
+           // no action
         } catch (JSONException e) {
             newExpenseReport();
         }
@@ -169,15 +174,23 @@ public class ExpenseReportUI extends JFrame implements ActionListener {
             jsonWriter.open();
             jsonWriter.write(expenseReport);
             jsonWriter.close();
-            System.out.println("Saved " + expenseReport.getName() + " to " + JSON_STORE);
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
+            // no action taken
         }
     }
 
-    // EFFECTS: closes the expense report app
+    // EFFECTS: closes the expense report app and prints the EventLog to console
     private void quit() {
         dispose();
+        printLog(eventLog);
         System.exit(0);
+    }
+
+
+    // EFFECTS: prints the EventLog to console
+    public void printLog(EventLog el) {
+        for (Event next : el) {
+            System.out.println(next.toString());
+        }
     }
 }

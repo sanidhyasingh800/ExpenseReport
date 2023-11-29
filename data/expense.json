@@ -69,14 +69,6 @@
         },
         {
             "date": "2023-11-16",
-            "cost": 20,
-            "foods": [],
-            "name": "uber",
-            "description": "starbucks",
-            "category": "FoodExpense"
-        },
-        {
-            "date": "2023-11-16",
             "cost": 89,
             "need": false,
             "name": "Games",
@@ -98,14 +90,6 @@
             "name": "save ons",
             "description": "weekly groceries",
             "category": "FoodExpense"
-        },
-        {
-            "date": "2023-11-21",
-            "cost": 40,
-            "name": "uber",
-            "description": "trip to downtown",
-            "category": "TransportationExpense",
-            "type": 0
         },
         {
             "date": "2023-11-22",
@@ -130,14 +114,6 @@
             "name": "check up ",
             "description": "annual checkuo",
             "category": "HealthcareExpense"
-        },
-        {
-            "date": "2023-11-22",
-            "cost": 300,
-            "need": false,
-            "name": "clothes",
-            "description": "bought winter jackets",
-            "category": "PersonalExpense"
         },
         {
             "date": "2023-11-22",
@@ -172,20 +148,44 @@
             "category": "FoodExpense"
         },
         {
-            "date": "2023-11-22",
-            "cost": 25,
+            "date": "2023-11-28",
+            "cost": 100,
             "foods": [],
-            "name": "feast",
-            "description": "bought food at feast ",
+            "name": "save ons ",
+            "description": "fjh",
             "category": "FoodExpense"
         },
         {
-            "date": "2023-11-22",
-            "cost": 25,
+            "date": "2023-11-28",
+            "cost": 100,
             "foods": [],
-            "name": "feast",
-            "description": "bought food at feast ",
+            "name": "save ons ",
+            "description": "bread",
             "category": "FoodExpense"
+        },
+        {
+            "date": "2023-11-28",
+            "cost": 100,
+            "foods": [],
+            "name": "svae ons ",
+            "description": "food",
+            "category": "FoodExpense"
+        },
+        {
+            "date": "2023-11-28",
+            "cost": 100,
+            "foods": [],
+            "name": "save ons ",
+            "description": "weekly grocery",
+            "category": "FoodExpense"
+        },
+        {
+            "date": "2023-11-28",
+            "cost": 400,
+            "name": "decoration ",
+            "description": "christmas lights and tree",
+            "bill": 0,
+            "category": "HousingExpense"
         }
     ]
 }
