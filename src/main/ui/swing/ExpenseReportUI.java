@@ -204,6 +204,9 @@ public class ExpenseReportUI extends JFrame implements ActionListener, WindowLis
         printLog(eventLog);
     }
 
+
+    // Methods Not Used:
+
     @Override
     public void windowOpened(WindowEvent e) {
 
