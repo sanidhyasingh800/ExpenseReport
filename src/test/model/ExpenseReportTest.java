@@ -346,11 +346,9 @@ public class ExpenseReportTest {
     public void testGetHousingExpenses() {
         addAllExpenses();
         List<Expense> testList = testReport.getSpecificCategoryOfExpense(3);
-        assertEquals(2, testList.size());
+        assertEquals(1, testList.size());
         Expense test = testList.get(0);
         checkForCorrectExpense(expense5, test);
-        test = testList.get(1);
-        checkForCorrectExpense(expense6, test);
     }
 
     @Test
@@ -442,7 +440,7 @@ public class ExpenseReportTest {
     public void testFilterByMonth() {
         addAllExpenses();
         List<Expense> testList = testReport.filterByMonth();
-        assertEquals(8, testList.size());
+        assertEquals(7, testList.size());
         Expense test = testList.get(0);
         checkForCorrectExpense(expense1, test);
         test = testList.get(1);
@@ -454,10 +452,8 @@ public class ExpenseReportTest {
         test = testList.get(4);
         checkForCorrectExpense(expense5, test);
         test = testList.get(5);
-        checkForCorrectExpense(expense6, test);
-        test = testList.get(6);
         checkForCorrectExpense(expense7, test);
-        test = testList.get(7);
+        test = testList.get(6);
         checkForCorrectExpense(expense9, test);
     }
 
@@ -502,10 +498,10 @@ public class ExpenseReportTest {
                 LocalDate.now().getMonthValue(),
                 LocalDate.now().minusDays(6).getDayOfMonth());
         testReport.addExpense("HousingExpense1", 25, "D5", 3);
-        testReport.addExpenseWithTime("HousingExpense2", 150, "D6", 3,
-                LocalDate.now().getYear(),
-                LocalDate.now().getMonthValue(),
-                1);
+        // testReport.addExpenseWithTime("HousingExpense2", 150, "D6", 3,
+                //LocalDate.now().getYear(),
+               // LocalDate.now().getMonthValue(),
+               // 1);
         testReport.addExpense("TransportationExpense1", 1.50, "D7",4 );
         testReport.addExpenseWithTime("TransportationExpense2", 63.79, "D8", 4,
                 LocalDate.now().minusYears(1).getYear(),

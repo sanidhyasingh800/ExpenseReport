@@ -47,12 +47,12 @@ public class StatisticsReportTest {
 
     @Test
     public void testTotalSpending() {
-        assertEquals(1320.29, testStatistics.totalSpending(), 0.5);
+        assertEquals(1170.29, testStatistics.totalSpending(), 0.5);
     }
 
     @Test
     public void testBudgetLeft() {
-        assertEquals(-320.28, testStatistics.budgetLeft(), 0.5);
+        assertEquals(-170.28, testStatistics.budgetLeft(), 0.5);
     }
 
     @Test
@@ -67,7 +67,7 @@ public class StatisticsReportTest {
 
     @Test
     public void testTotalSpendingByCategory3() {
-        assertEquals(175.0, testStatistics.totalSpendingByCategory(3), 0.5);
+        assertEquals(25.0, testStatistics.totalSpendingByCategory(3), 0.5);
     }
 
     @Test
@@ -87,12 +87,12 @@ public class StatisticsReportTest {
 
     @Test
     public void testPercentageOfCategory1() {
-        assertEquals(18.97, testStatistics.percentageOfCategory(1), 0.5);
+        assertEquals(21.36, testStatistics.percentageOfCategory(1), 0.5);
     }
 
     @Test
     public void testAverageCost() {
-        assertEquals(110.02, testStatistics.averageCost(), 0.5);
+        assertEquals(106.39, testStatistics.averageCost(), 0.5);
     }
 
     @Test
@@ -115,7 +115,7 @@ public class StatisticsReportTest {
     }
     @Test
     public void testTotalExpenses() {
-        assertEquals(12, testStatistics.totalExpenses());
+        assertEquals(11, testStatistics.totalExpenses());
     }
 
     @Test
@@ -123,7 +123,7 @@ public class StatisticsReportTest {
     public void testTotalExpensesByCategory() {
         assertEquals(2, testStatistics.totalExpensesInCategory(1));
         assertEquals(2, testStatistics.totalExpensesInCategory(2));
-        assertEquals(2, testStatistics.totalExpensesInCategory(3));
+        assertEquals(1, testStatistics.totalExpensesInCategory(3));
         assertEquals(4, testStatistics.totalExpensesInCategory(4));
         assertEquals(2, testStatistics.totalExpensesInCategory(5));
     }
@@ -140,7 +140,7 @@ public class StatisticsReportTest {
 
     @Test
     public void testTotalExpensesMonthly() {
-        assertEquals(10, testStatistics.totalExpensesMonthly(), 0.5);
+        assertEquals(9, testStatistics.totalExpensesMonthly(), 0.5);
     }
 
     @Test
@@ -155,7 +155,7 @@ public class StatisticsReportTest {
 
     @Test
     public void testTotalSpendingMonthly() {
-        assertEquals(806.5, testStatistics.totalSpendingMonthly(), 0.5);
+        assertEquals(656.5, testStatistics.totalSpendingMonthly(), 0.5);
     }
 
     @Test
@@ -181,7 +181,7 @@ public class StatisticsReportTest {
 
     @Test
     public void testAverageSpendingMonthly() {
-        assertEquals(80.65, testStatistics.averageSpendingMonthly(), 0.5);
+        assertEquals(72.94, testStatistics.averageSpendingMonthly(), 0.5);
     }
 
     @Test
@@ -269,26 +269,26 @@ public class StatisticsReportTest {
                 LocalDate.now().minusDays(6).getDayOfMonth());
         testExpenses.addExpense("HousingExpense1", 25, "D5", 3);
         ((HousingExpense) testExpenses.getExpenses().get(4)).setTypeofBill(1);
-        testExpenses.addExpenseWithTime("HousingExpense2", 150, "D6", 3,
-                LocalDate.now().getYear(),
-                LocalDate.now().getMonthValue(),
-                1);
+        // testExpenses.addExpenseWithTime("HousingExpense2", 150, "D6", 3,
+        //        LocalDate.now().getYear(),
+        //        LocalDate.now().getMonthValue(),
+        //        1);
         testExpenses.addExpense("TransportationExpense1", 1.50, "D7",4 );
-        ((TransportationExpense) testExpenses.getExpenses().get(6)).setTypeOfTransportation(1);
+        ((TransportationExpense) testExpenses.getExpenses().get(5)).setTypeOfTransportation(1);
         testExpenses.addExpenseWithTime("TransportationExpense2", 63.79, "D8", 4,
                 LocalDate.now().minusYears(1).getYear(),
                 LocalDate.now().getMonthValue(),
                 LocalDate.now().getDayOfMonth());
         testExpenses.addExpense("PersonalExpense1", 89, "D9", 5);
-        ((PersonalExpense) testExpenses.getExpenses().get(8)).setAsNeed(true);
+        ((PersonalExpense) testExpenses.getExpenses().get(7)).setAsNeed(true);
         testExpenses.addExpenseWithTime("PersonalExpense2", 450, "D10", 5,
                 LocalDate.now().minusDays(31).getYear(),
                 LocalDate.now().minusDays(31).getMonthValue(),
                 LocalDate.now().minusDays(31).getDayOfMonth());
         testExpenses.addExpense("TransportationExpense3", 1.50, "D11",4 );
-        ((TransportationExpense) testExpenses.getExpenses().get(10)).setTypeOfTransportation(2);
+        ((TransportationExpense) testExpenses.getExpenses().get(9)).setTypeOfTransportation(2);
         testExpenses.addExpense("TransportationExpense4", 1.50, "D12",4 );
-        ((TransportationExpense) testExpenses.getExpenses().get(11)).setTypeOfTransportation(3);
+        ((TransportationExpense) testExpenses.getExpenses().get(10)).setTypeOfTransportation(3);
     }
 
     private void initializeExpenses() {

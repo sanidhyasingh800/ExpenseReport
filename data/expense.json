@@ -1,13 +1,13 @@
 {
-    "name": "sunny",
+    "name": "sunny ",
     "savedexpenses": [],
     "budget": 1000,
     "expenses": [{
         "date": "2023-12-01",
-        "cost": 100,
-        "foods": [],
-        "name": "save ons ",
-        "description": "grocery",
-        "category": "FoodExpense"
+        "cost": 40,
+        "covered": 0,
+        "name": "gym",
+        "description": "semester pass ",
+        "category": "HealthcareExpense"
     }]
 }
