@@ -1,6 +1,6 @@
 package ui;
 
-import model.ExpenseReport;
+
 import ui.swing.ExpenseReportUI;
 
 public class Main {
