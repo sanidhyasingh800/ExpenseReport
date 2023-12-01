@@ -47,17 +47,25 @@ A Detailed View of the Functionalities:
 
 
 ## Phase 4: Task 2
-- Tue Nov 28 17:48:37 PST 2023
-  - Expense Report Created with name: sunny and budget: 100.0
-- Tue Nov 28 17:48:50 PST 2023
-  - Food Expense created with name: save ons , cost: 100.0, and description: weekly grocery
-- Tue Nov 28 17:49:12 PST 2023
-  - Housing Expense created with name: decoration , cost: 400.0, and description: christmas lights and tree
-- Tue Nov 28 17:49:17 PST 2023
-  - Deleted Expense with name: buspass and cost: 100.0
-- Tue Nov 28 17:49:21 PST 2023
-  - Deleted Expense with name: clothes and cost: 300.0
-- Tue Nov 28 17:49:23 PST 2023
+- Fri Dec 01 08:25:03 PST 2023 
+  - Expense Report Created with name: sunny and budget: 1000.0
+- Fri Dec 01 08:25:17 PST 2023
+  - Food Expense created with name: save ons , cost: 100.0, and description: grocery
+- Fri Dec 01 08:25:18 PST 2023
+  - Overall Expense Report Viewed
+- Fri Dec 01 08:25:35 PST 2023 
+  - Healthcare Expense created with name: gympass, cost: 45.0, and description: health
+- Fri Dec 01 08:25:36 PST 2023 
+  - Overall Expense Report Viewed
+- Fri Dec 01 08:25:38 PST 2023 
+  - Health Expense Report Viewed
+- Fri Dec 01 08:25:40 PST 2023 
+  - Food Expense Report Viewed
+- Fri Dec 01 08:25:43 PST 2023 
+  - Overall Expense Report Viewed
+- Fri Dec 01 08:25:45 PST 2023 
+  - Deleted Expense with name: gympass and cost: 45.0
+- Fri Dec 01 08:25:48 PST 2023 
   - Expense Report: sunny saved to file
   
 ## Phase 4: Task 3:

@@ -77,6 +77,7 @@ public class JsonReader {
     // MODIFIES: expenseReport
     // EFFECTS: parses expense from JSON object and adds it to expense report
     private void addExpense(ExpenseReport expenseReport, JSONObject jsonObject) {
+        expenseReport.setAccessedThroughGraph(true);
         String category = jsonObject.getString("category");
         addExpenseToList(expenseReport.getExpenses(), jsonObject, category);
     }

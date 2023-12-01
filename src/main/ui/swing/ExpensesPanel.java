@@ -90,12 +90,15 @@ public class ExpensesPanel extends JPanel implements ActionListener {
     // MODIFIES: this
     // EFFECTS: displays all current expenses in report
     public void displayExpenses() {
+        expenseReport.setAccessedThroughGraph(true);
         if (expenseReport.getExpenses().size() != refreshCheck || currentlyDisplayingFilter) {
             model.setRowCount(0);
             currentlyDisplayingFilter = false;
             delete.setEnabled(true);
             refreshCheck = expenseReport.getExpenses().size();
-            for (Expense e: expenseReport.getExpenses()) {
+            expenseReport.setAccessedThroughGraph(false);
+            List<Expense> expense = expenseReport.getExpenses();
+            for (Expense e: expense) {
                 String[] data = returnDisplayData(e);
                 model.addRow(data);
             }

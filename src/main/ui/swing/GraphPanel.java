@@ -1,6 +1,7 @@
 package ui.swing;
 
 
+import model.ExpenseReport;
 import model.StatisticsReport;
 import org.knowm.xchart.*;
 import org.knowm.xchart.style.Styler;
@@ -22,9 +23,12 @@ public class GraphPanel extends JPanel implements ActionListener {
     private XChartPanel<CategoryChart> display;
     private XChartPanel<PieChart> pieChartDisplay;
 
+    private ExpenseReport expenseReport;
+
     // EFFECTS: constructs a graph panel with provided statistics report
     public GraphPanel(StatisticsReport st) {
         statisticsReport = st;
+        this.expenseReport = st.getExpenseReport();
         setLayout(new BorderLayout());
         setupButtons();
         showOverallReport();
@@ -44,6 +48,7 @@ public class GraphPanel extends JPanel implements ActionListener {
     // MODIFIES: this
     // EFFECTS: shows a bar graph of the overall spending per category
     private void showOverallReport() {
+        expenseReport.setAccessedThroughGraph(true);
         String[] categories = new String[] {"Food", "Healthcare", "Housing",
                 "Transportation", "Personal"};
         Double[] values = {statisticsReport.totalSpendingByCategory(1),
@@ -65,11 +70,13 @@ public class GraphPanel extends JPanel implements ActionListener {
         add(display, BorderLayout.NORTH);
         revalidate();
         repaint();
+        expenseReport.setAccessedThroughGraph(false);
     }
 
     // MODIFIES: this
     // EFFECTS: shows a bar graph of the average expense cost over month, week, and day
     private void showTimeReport() {
+        expenseReport.setAccessedThroughGraph(true);
         String[] categories = new String[] {"This Month", "This Week", "Today"};
         Double[] values = {statisticsReport.averageSpendingMonthly(),
                 statisticsReport.averageSpendingWeekly(),
@@ -88,11 +95,13 @@ public class GraphPanel extends JPanel implements ActionListener {
         add(display, BorderLayout.NORTH);
         revalidate();
         repaint();
+        expenseReport.setAccessedThroughGraph(false);
     }
 
     // MODIFIES: this
     // EFFECTS: shows a pie chart of the percentage of expenses in each category
     private void showPieChart() {
+        expenseReport.setAccessedThroughGraph(true);
         HashMap<String, Double> data = new HashMap<>();
         data.put("Food", statisticsReport.totalSpendingByCategory(1));
         data.put("Healthcare", statisticsReport.totalSpendingByCategory(2));
@@ -114,6 +123,7 @@ public class GraphPanel extends JPanel implements ActionListener {
         add(pieChartDisplay, BorderLayout.NORTH);
         revalidate();
         repaint();
+        expenseReport.setAccessedThroughGraph(false);
     }
 
     // EFFECTS: shows the graph selected by the user

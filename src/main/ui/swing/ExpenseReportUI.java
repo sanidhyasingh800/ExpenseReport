@@ -12,6 +12,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -19,7 +21,7 @@ import java.io.IOException;
 // displays the table of all expenses, and graphical views of report
 // Influenced heavily by:
 // https://stackoverflow.com/questions/6578205/swing-jlabel-text-change-on-the-running-application
-public class ExpenseReportUI extends JFrame implements ActionListener {
+public class ExpenseReportUI extends JFrame implements ActionListener, WindowListener {
     // setup information
     public static final int WIDTH = 1300;
     public static final int HEIGHT = 800;
@@ -90,6 +92,8 @@ public class ExpenseReportUI extends JFrame implements ActionListener {
         persistanceOptions.add(quit);
         persistanceOptions.add(save);
         persistanceOptions.add(saveAndQuit);
+
+        addWindowListener(this);
     }
 
     // MODIFIES: this
@@ -192,5 +196,41 @@ public class ExpenseReportUI extends JFrame implements ActionListener {
         for (Event next : el) {
             System.out.println(next.toString());
         }
+    }
+
+    // EFFECTS: prints the event log when user closes the application
+    @Override
+    public void windowClosing(WindowEvent e) {
+        printLog(eventLog);
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
     }
 }

@@ -19,6 +19,7 @@ public class ExpenseReport implements Writable {
     private final List<Expense> expenseList;
     private final List<Expense> easyAdd;
     private double budget;
+    private boolean accessedThroughGraph = false;
 
     // REQUIRES: budget > 0
     // MODIFIES: this, EventLog
@@ -256,6 +257,9 @@ public class ExpenseReport implements Writable {
     // Getters:
 
     public List<Expense> getExpenses() {
+        if (!accessedThroughGraph) {
+            EventLog.getInstance().logEvent(new Event("Overall Expense Report Viewed"));
+        }
         return expenseList;
     }
 
@@ -332,6 +336,9 @@ public class ExpenseReport implements Writable {
     //EFFECTS: returns all Food Expenses
     //         in the order they were added and logs it
     private List<Expense> getFoodExpenses() {
+        if (!accessedThroughGraph) {
+            EventLog.getInstance().logEvent(new Event("Food Expense Report Viewed"));
+        }
         List<Expense> returnList = new ArrayList<>();
         for (Expense ex : expenseList) {
             if (ex instanceof FoodExpense) {
@@ -344,6 +351,9 @@ public class ExpenseReport implements Writable {
     //EFFECTS: returns all Healthcare Expenses
     //         in the order they were added and logs it
     private List<Expense> getHealthExpenses() {
+        if (!accessedThroughGraph) {
+            EventLog.getInstance().logEvent(new Event("Health Expense Report Viewed"));
+        }
         List<Expense> returnList = new ArrayList<>();
         for (Expense ex : expenseList) {
             if (ex instanceof HealthcareExpense) {
@@ -356,6 +366,9 @@ public class ExpenseReport implements Writable {
     //EFFECTS: returns all Housing Expenses
     //         in the order they were added and logs it
     private List<Expense> getHousingExpenses() {
+        if (!accessedThroughGraph) {
+            EventLog.getInstance().logEvent(new Event("Housing Expense Report Viewed"));
+        }
         List<Expense> returnList = new ArrayList<>();
         for (Expense ex : expenseList) {
             if (ex instanceof HousingExpense) {
@@ -368,6 +381,9 @@ public class ExpenseReport implements Writable {
     //EFFECTS: returns all Transportation Expenses
     //         in the order they were added and logs it
     private List<Expense> getTransportationExpenses() {
+        if (!accessedThroughGraph) {
+            EventLog.getInstance().logEvent(new Event("Transportation Expense Report Viewed"));
+        }
         List<Expense> returnList = new ArrayList<>();
         for (Expense ex : expenseList) {
             if (ex instanceof TransportationExpense) {
@@ -380,6 +396,9 @@ public class ExpenseReport implements Writable {
     //EFFECTS: returns all PersonalExpenses Expenses
     //         in the order they were added and logs it
     private List<Expense> getPersonalExpenses() {
+        if (!accessedThroughGraph) {
+            EventLog.getInstance().logEvent(new Event("Personal Expense Report Viewed"));
+        }
         List<Expense> returnList = new ArrayList<>();
         for (Expense ex : expenseList) {
             if (ex instanceof PersonalExpense) {
@@ -425,6 +444,10 @@ public class ExpenseReport implements Writable {
         }
 
         return jsonArray;
+    }
+
+    public void setAccessedThroughGraph(Boolean b) {
+        accessedThroughGraph = b;
     }
 
 
